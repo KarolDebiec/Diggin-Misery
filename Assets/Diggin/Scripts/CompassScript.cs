@@ -27,3 +27,4 @@ public class CompassScript : MonoBehaviour
         CompassDiretionText.text = displayAngle.ToString();
     }
 }
+//nie pytaj
