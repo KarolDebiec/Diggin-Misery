@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5316806149597718239
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5316806149597718236}
+  - component: {fileID: 5316806149597718237}
+  - component: {fileID: 5316806149597718238}
+  m_Layer: 0
+  m_Name: BuildingSystem
+  m_TagString: BuildSystem
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5316806149597718236
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5316806149597718239}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.9609375, y: 10.7609215, z: -9.164337}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5316806149597718237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5316806149597718239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69aa79aaa1c29f948a7307cf1614403f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foundationPreview: {fileID: 8131762220474208390, guid: 5c298e3f0914afd4eba5bad1644385db, type: 3}
+  wallPreview: {fileID: 3256167531331933957, guid: 135d5d8f7f4d67a40acc3d0661f5a3f0, type: 3}
+  celingPreview: {fileID: 1515341117853670961, guid: a5135086111f5db478f3b96e4576a45e, type: 3}
+  doorwayPreview: {fileID: 6572842832167483369, guid: 90c37af90013da0469d070426eb94fa4, type: 3}
+  metalCabinetPreview: {fileID: 879990250675370415, guid: 51f05456298eecb4e9119892d1d5430f, type: 3}
+  doorPreview: {fileID: 2480578961018791772, guid: 36683875961d23c458c3a616061c7f81, type: 3}
+  wallLightPreview: {fileID: 7682338390857189465, guid: 0b89bde1d10d5334b8a9d222916952c3, type: 3}
+  ceilingLightPreview: {fileID: 7476900154277578304, guid: 47217a667ce68ea45b9a7d34248591d6, type: 3}
+  buildSystem: {fileID: 5316806149597718238}
+--- !u!114 &5316806149597718238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5316806149597718239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 122abd4e00384fe48aa0c0da6ffd78ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+  layer:
+    serializedVersion: 2
+    m_Bits: 2055
+  stickTolerance: 0.1
+  buildingGroupPrefab: {fileID: 7237905002410796961, guid: 8047aefd5ca2ac442b827681a08ee8c8, type: 3}
+  allStructureSnapPoints: []
+  allFurnitureSnapPoints: []
+  isBuilding: 0
+  aimedAt: {fileID: 0}
+  isDestroyingBuilding: 0
+  isFurniturePlacement: 0
+  previewFurnitureGameObject: {fileID: 0}
+  previewRotationSpeed: 100
