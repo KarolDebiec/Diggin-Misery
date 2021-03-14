@@ -47,8 +47,6 @@ public class Chunk : MonoBehaviour
             changesUnsaved = true;
 
             Mesh myMesh = MeshBuilder.Instance.BuildChunk(data);
-            myMesh.RecalculateNormals();
-            myMesh.RecalculateTangents();
             GetComponent<MeshFilter>().mesh = myMesh;
             GetComponent<MeshCollider>().sharedMesh = myMesh;
 
