@@ -54,7 +54,7 @@ public class BuildManager : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.P) && !buildSystem.isBuilding)
         {
-            buildSystem.EnableSnapPoints();
+            //buildSystem.EnableSnapPoints();
         }
         if (Input.GetKeyDown(KeyCode.M) && !buildSystem.isBuilding && !buildSystem.isFurniturePlacement)
         {

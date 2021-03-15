@@ -14,12 +14,20 @@ public class SpiderController : MonoBehaviour
     public Vector3[] legTargetOrigins;   // used for animation
     public Vector3[] legTargetTargets;
     public float legMovementSpeed;
+    public float legMovementSpeedRunMultiplier=1;
     public LayerMask layerMask;
     public float maxDistance;
     public float minDistance;
     public float speed;
+    public float speedRunMultiplier;
     private int i=0;
     private float averageY = 0;
+
+    public float attackRange;
+
+    public GameObject player;
+    public float triggerDistance;
+    public float triggerSpeedUpDistance;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,11 +36,14 @@ public class SpiderController : MonoBehaviour
             legTargets[i].transform.parent = gameObject.transform.parent;
         }
     }
-
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.W))
+        /*if (Input.GetKey(KeyCode.W))
         {
             gameObject.transform.Translate(Vector3.left * Time.deltaTime * speed);
         }
@@ -47,7 +58,7 @@ public class SpiderController : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             gameObject.transform.Rotate(0, 90 * Time.deltaTime, 0);
-        }
+        }*/
         averageY = 0;
         foreach (GameObject leg in legTargets)
         {
@@ -55,6 +66,31 @@ public class SpiderController : MonoBehaviour
         }
         averageY = averageY / numberOfLegs;
         transform.position = new Vector3(transform.position.x,averageY, transform.position.z);
+
+        //
+        if(player!=null)
+        {
+            Debug.Log(Vector3.Distance(gameObject.transform.position,player.transform.position));
+            if(attackRange< Vector3.Distance(gameObject.transform.position, player.transform.position) && Vector3.Distance(gameObject.transform.position, player.transform.position)<triggerDistance)
+            {
+                if (Vector3.Distance(gameObject.transform.position, player.transform.position) < triggerSpeedUpDistance)
+                {
+                    //gameObject.transform.rotation = Quaternion.LookRotation((player.transform.position - gameObject.transform.position).normalized, Vector3.up);
+                    gameObject.transform.Translate( (player.transform.position - gameObject.transform.position).normalized * Time.deltaTime * speed *speedRunMultiplier);
+                    legMovementSpeedRunMultiplier = 3;
+                }
+                else
+                {
+                    //gameObject.transform.rotation = Quaternion.LookRotation((player.transform.position - gameObject.transform.position).normalized, Vector3.up);
+                    gameObject.transform.Translate((player.transform.position - gameObject.transform.position).normalized * Time.deltaTime * speed);
+                    legMovementSpeedRunMultiplier = 1;
+                }
+            }
+            else
+            {
+                AttackPlayer();
+            }
+        }
     }/*
     int elapsedFrames =0;
     public int interpolationFramesCount = 45;
@@ -99,7 +135,7 @@ public class SpiderController : MonoBehaviour
                 }
                 if (moveLeg[i])
                 {
-                    legTargets[i].transform.position = Vector3.MoveTowards(legTargets[i].transform.position, legTargetTargets[i], legMovementSpeed);
+                    legTargets[i].transform.position = Vector3.MoveTowards(legTargets[i].transform.position, legTargetTargets[i], legMovementSpeed*legMovementSpeedRunMultiplier);
                     if(Vector3.Distance(legTargets[i].transform.position, legTargetTargets[i]) <= minDistance)
                     {
                         moveLeg[i] = false;
@@ -137,5 +173,9 @@ public class SpiderController : MonoBehaviour
 
             i++;
         }
+    }
+    public void AttackPlayer()
+    {
+
     }
 }

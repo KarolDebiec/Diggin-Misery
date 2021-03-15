@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuildSystem : MonoBehaviour {
 
-
+    // yes i know its ceiling and not celing but im too lazy to change that now xD
     public Camera cam;//camera used for raycast
     public LayerMask layer;//the layer that the raycast will hit on
     //////////////////////////////////////////////
@@ -169,7 +169,22 @@ public class BuildSystem : MonoBehaviour {
 
     public void NewBuild(GameObject _go)
     {
-        EnableAllSnapPoints();
+        //temporary solution(i think)
+        if(_go.name == "Foundation_Preview")
+        {
+            EnableSnapPoints("Foundation_SP");
+        }
+        if (_go.name == "Celing_Preview")
+        {
+            EnableSnapPoints("Foundation_SP");
+            EnableSnapPoints("Celing_SP");
+        }
+        if (_go.name == "Wall_Preview" || _go.name == "Doorway_Preview")
+        {
+            EnableSnapPoints("Wall_SP");
+        }
+        //
+        //EnableAllSnapPoints();
         previewGameObject = Instantiate(_go, Vector3.zero, Quaternion.identity);
         previewScript = previewGameObject.GetComponent<Preview>();
         isBuilding = true;
@@ -312,11 +327,11 @@ public class BuildSystem : MonoBehaviour {
             go.SetActive(true);
         }
     }
-    public void EnableSnapPoints() // enables all snappoints on scene that should be enabled
+    public void EnableSnapPoints(string tagName) // enables all snappoints on scene that should be enabled
     {
         foreach (GameObject go in allStructures)
         {
-            go.GetComponent<Structure>().EnableSnapPoints();
+            go.GetComponent<Structure>().EnableSpecificSnapPoints(tagName);
         }
     }
     public void DisableSnapPoints()

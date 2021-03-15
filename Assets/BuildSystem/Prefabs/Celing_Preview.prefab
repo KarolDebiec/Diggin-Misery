@@ -132,5 +132,9 @@ MonoBehaviour:
   isFoundation: 0
   tagsISnapTo:
   - Celing_SP
+  - Foundation_SP
   snappedTo: {fileID: 0}
+  snappedToParent: {fileID: 0}
   canBuild: 1
+  buildingGroup: {fileID: 0}
+  buildingGroupPrefab: {fileID: 0}

@@ -7092,12 +7092,18 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   legMovementSpeed: 0.05
+  legMovementSpeedRunMultiplier: 1
   layerMask:
     serializedVersion: 2
     m_Bits: 2048
   maxDistance: 0.2
   minDistance: 0.02
   speed: 1
+  speedRunMultiplier: 3
+  attackRange: 0
+  player: {fileID: 0}
+  triggerDistance: 40
+  triggerSpeedUpDistance: 20
 --- !u!1 &8596386546183404511
 GameObject:
   m_ObjectHideFlags: 0

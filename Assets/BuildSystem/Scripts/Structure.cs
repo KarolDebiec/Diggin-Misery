@@ -47,6 +47,18 @@ public class Structure : MonoBehaviour
             x++;
         }
     }
+    public void EnableSpecificSnapPoints(string snapPointTag)
+    {
+        int x = 0;
+        foreach (bool shouldSnap in shouldSnapPointBeActive)
+        {
+            if (shouldSnap && snapPoints[x].CompareTag(snapPointTag))
+            {
+                snapPoints[x].SetActive(true);
+            }
+            x++;
+        }
+    }
     public void DisableSnapPoints()
     {
         int x = 0;
