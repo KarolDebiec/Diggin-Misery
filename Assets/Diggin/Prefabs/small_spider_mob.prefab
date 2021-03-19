@@ -7100,7 +7100,10 @@ MonoBehaviour:
   minDistance: 0.02
   speed: 1
   speedRunMultiplier: 3
-  attackRange: 0
+  attackRange: 2
+  biteDamage: 10
+  canAttack: 1
+  attackIntervals: 1
   player: {fileID: 0}
   triggerDistance: 40
   triggerSpeedUpDistance: 20

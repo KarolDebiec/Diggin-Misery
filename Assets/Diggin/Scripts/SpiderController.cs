@@ -23,7 +23,13 @@ public class SpiderController : MonoBehaviour
     private int i=0;
     private float averageY = 0;
 
+    public float health=100;
+
     public float attackRange;
+    public float biteDamage;
+    public bool canAttack;
+    public float attackIntervals;
+    private float time=0;
 
     public GameObject player;
     public float triggerDistance;
@@ -75,20 +81,31 @@ public class SpiderController : MonoBehaviour
             {
                 if (Vector3.Distance(gameObject.transform.position, player.transform.position) < triggerSpeedUpDistance)
                 {
-                    //gameObject.transform.rotation = Quaternion.LookRotation((player.transform.position - gameObject.transform.position).normalized, Vector3.up);
-                    gameObject.transform.Translate( (player.transform.position - gameObject.transform.position).normalized * Time.deltaTime * speed *speedRunMultiplier);
+                    gameObject.transform.rotation = Quaternion.LookRotation((player.transform.position - gameObject.transform.position).normalized, Vector3.up)*Quaternion.Euler(0, -90, 0);
+                    //gameObject.transform.Translate( (player.transform.position - gameObject.transform.position).normalized * Time.deltaTime * speed *speedRunMultiplier);
+                    transform.position = transform.position + Vector3.ClampMagnitude((player.transform.position - gameObject.transform.position).normalized * Time.deltaTime * speed * speedRunMultiplier, Vector3.Distance(transform.position, player.transform.position));
                     legMovementSpeedRunMultiplier = 3;
                 }
                 else
                 {
-                    //gameObject.transform.rotation = Quaternion.LookRotation((player.transform.position - gameObject.transform.position).normalized, Vector3.up);
-                    gameObject.transform.Translate((player.transform.position - gameObject.transform.position).normalized * Time.deltaTime * speed);
+                    gameObject.transform.rotation = Quaternion.LookRotation((player.transform.position - gameObject.transform.position).normalized, Vector3.up) * Quaternion.Euler(0, -90, 0);
+                    transform.position = transform.position + Vector3.ClampMagnitude((player.transform.position - gameObject.transform.position).normalized * Time.deltaTime * speed, Vector3.Distance(transform.position, player.transform.position));
+                    //gameObject.transform.Translate((player.transform.position - gameObject.transform.position).normalized * Time.deltaTime * speed);
                     legMovementSpeedRunMultiplier = 1;
                 }
             }
-            else
+            else if(attackRange >= Vector3.Distance(gameObject.transform.position, player.transform.position) && canAttack)
             {
+                gameObject.transform.rotation = Quaternion.LookRotation((player.transform.position - gameObject.transform.position).normalized, Vector3.up) * Quaternion.Euler(0, -90, 0);
                 AttackPlayer();
+            }
+        }
+        if(!canAttack)
+        {
+            time += Time.deltaTime;
+            if(time>attackIntervals)
+            {
+                canAttack = true;
             }
         }
     }/*
@@ -176,6 +193,28 @@ public class SpiderController : MonoBehaviour
     }
     public void AttackPlayer()
     {
-
+        if (player!=null)
+        {
+            player.GetComponent<PlayerController>().DamagePlayer(biteDamage);
+        }
+        time = 0;
+        canAttack = false;
+    }
+    public void damageSpider(float damage)
+    {
+        if(health-damage>0)
+        {
+            health -= damage;
+        }
+        else
+        {
+            health = 0;
+            killSpider();
+        }    
+             
+    }
+    public void killSpider()
+    {
+        Destroy(gameObject);
     }
 }
