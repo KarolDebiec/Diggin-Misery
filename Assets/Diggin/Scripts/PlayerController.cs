@@ -74,7 +74,14 @@ public class PlayerController : MonoBehaviour
     }
     public void RespawnPlayer()
     {
-
+        if(respawnPoint!=null)
+        {
+            gameObject.transform.position = respawnPoint.transform.position;
+        }
+        else
+        {
+            gameObject.transform.position = new Vector3(0,150,0);
+        }
     }
     public void AddThirst(float value)
     {

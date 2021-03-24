@@ -24,6 +24,7 @@ public class SpiderController : MonoBehaviour
     private float averageY = 0;
 
     public float health=100;
+    public bool alive;
 
     public float attackRange;
     public float biteDamage;
@@ -74,7 +75,7 @@ public class SpiderController : MonoBehaviour
         transform.position = new Vector3(transform.position.x,averageY, transform.position.z);
 
         //
-        if(player!=null)
+        if(player!=null && alive)
         {
             Debug.Log(Vector3.Distance(gameObject.transform.position,player.transform.position));
             if(attackRange< Vector3.Distance(gameObject.transform.position, player.transform.position) && Vector3.Distance(gameObject.transform.position, player.transform.position)<triggerDistance)
@@ -100,7 +101,7 @@ public class SpiderController : MonoBehaviour
                 AttackPlayer();
             }
         }
-        if(!canAttack)
+        if(!canAttack && alive)
         {
             time += Time.deltaTime;
             if(time>attackIntervals)

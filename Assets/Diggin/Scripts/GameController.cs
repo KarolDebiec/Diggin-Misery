@@ -55,4 +55,8 @@ public class GameController : MonoBehaviour
         SaveData data =SaveSystem.LoadPlayer( save_dir, world);
         playerController.health = data.Health;
     }
+    public void RespawnPlayer()
+    {
+        playerController.RespawnPlayer();
+    }
 }
