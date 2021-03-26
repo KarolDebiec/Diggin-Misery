@@ -3,25 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Linq;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 
 public class GameController : MonoBehaviour
 {
     public PlayerController playerController;
+    public UIController UIcontroller;
 
     private string world; // worlds name
     private string save_dir; // saving folder
 
-    // Start is called before the first frame update
-    void Start()
+    public float worldTime; //time in seconds in the 24h system
+    public float timeSpeed;
+
+
+
+    public Light sun;
+    public Light moon;
+    public Volume skyVolume;
+    public AnimationCurve starsCurve;
+    private PhysicallyBasedSky sky;
+    public bool isNight;
+
+    private void Awake()
     {
-        
+        world = (GameObject.FindGameObjectWithTag("DataHolder")).GetComponent<MultiSceneDataHolder>().worldName;
+        save_dir = (GameObject.FindGameObjectWithTag("DataHolder")).GetComponent<MultiSceneDataHolder>().Save_Directory;
+        UIcontroller = gameObject.GetComponent<UIController>();
+        skyVolume.profile.TryGet(out sky);
     }
     public bool test;
     public bool test2;
     // Update is called once per frame
     void Update()
     {
-        if(test)
+        DayNight();
+        if (test)
         {
             SaveGame();
         }
@@ -30,14 +48,9 @@ public class GameController : MonoBehaviour
             LoadGame();
         }
     }
-
-
-
-    private void Awake()
+    private void OnValidate()
     {
-        world = (GameObject.FindGameObjectWithTag("DataHolder")).GetComponent<MultiSceneDataHolder>().worldName;
-        save_dir = (GameObject.FindGameObjectWithTag("DataHolder")).GetComponent<MultiSceneDataHolder>().Save_Directory;
-    
+        skyVolume.profile.TryGet(out sky);
     }
     public void SaveGame() //saves buildings, stats, eq, world variables
     {
@@ -46,7 +59,10 @@ public class GameController : MonoBehaviour
         //save player
         SaveSystem.SavePlayer(playerController,save_dir,world);
     }
-
+    public void RespawnPlayer()
+    {
+        playerController.RespawnPlayer();
+    }
     public void LoadGame() //loades buildings, stats, eq, world variables
     {
         //load buildings
@@ -55,8 +71,53 @@ public class GameController : MonoBehaviour
         SaveData data =SaveSystem.LoadPlayer( save_dir, world);
         playerController.health = data.Health;
     }
-    public void RespawnPlayer()
+    void DayNight()
     {
-        playerController.RespawnPlayer();
+        CalcTime();
+        UIcontroller.displayTime(worldTime);
+        float timeAlpha = worldTime / 86400;
+        float sunRotation = Mathf.Lerp(-90, 270, worldTime / 86400);
+        float moonRotation = sunRotation - 180;
+        sun.transform.rotation = Quaternion.Euler(sunRotation, -30, 0);
+        moon.transform.rotation = Quaternion.Euler(moonRotation, -30, 0);
+        sky.spaceEmissionMultiplier.value = starsCurve.Evaluate(timeAlpha);
+        CheckNightDayTransition();
+    }
+    void CalcTime()
+    {
+        worldTime += Time.deltaTime * timeSpeed;
+        if (worldTime > 86400)
+        {
+            worldTime -= 86400;
+        }
+    }
+    private void CheckNightDayTransition()
+    {
+        if(isNight)
+        {
+            if(moon.transform.rotation.eulerAngles.x >180)
+            {
+                StartDay();
+            }
+        }
+        else
+        {
+            if (sun.transform.rotation.eulerAngles.x > 180)
+            {
+                StartNight();
+            }
+        }
+    }
+    private void StartDay()
+    {
+        isNight = false;
+        sun.shadows = LightShadows.Soft;
+        moon.shadows = LightShadows.None;
+    }
+    private void StartNight()
+    {
+        isNight = true;
+        moon.shadows = LightShadows.Soft;
+        sun.shadows = LightShadows.None;
     }
 }

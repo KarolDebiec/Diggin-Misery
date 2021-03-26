@@ -35,6 +35,9 @@ public class SpiderController : MonoBehaviour
     public GameObject player;
     public float triggerDistance;
     public float triggerSpeedUpDistance;
+    private AudioSource m_MyAudioSource;
+    public AudioClip[] spiderSounds;
+    private bool isWalkingSoundOn = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +49,7 @@ public class SpiderController : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        m_MyAudioSource = GetComponent<AudioSource>();
     }
     // Update is called once per frame
     void Update()
@@ -86,6 +90,7 @@ public class SpiderController : MonoBehaviour
                     //gameObject.transform.Translate( (player.transform.position - gameObject.transform.position).normalized * Time.deltaTime * speed *speedRunMultiplier);
                     transform.position = transform.position + Vector3.ClampMagnitude((player.transform.position - gameObject.transform.position).normalized * Time.deltaTime * speed * speedRunMultiplier, Vector3.Distance(transform.position, player.transform.position));
                     legMovementSpeedRunMultiplier = 3;
+                    WalkingSound();
                 }
                 else
                 {
@@ -93,6 +98,7 @@ public class SpiderController : MonoBehaviour
                     transform.position = transform.position + Vector3.ClampMagnitude((player.transform.position - gameObject.transform.position).normalized * Time.deltaTime * speed, Vector3.Distance(transform.position, player.transform.position));
                     //gameObject.transform.Translate((player.transform.position - gameObject.transform.position).normalized * Time.deltaTime * speed);
                     legMovementSpeedRunMultiplier = 1;
+                    WalkingSound();
                 }
             }
             else if(attackRange >= Vector3.Distance(gameObject.transform.position, player.transform.position) && canAttack)
@@ -200,6 +206,7 @@ public class SpiderController : MonoBehaviour
         }
         time = 0;
         canAttack = false;
+        AttackSound();
     }
     public void damageSpider(float damage)
     {
@@ -213,6 +220,27 @@ public class SpiderController : MonoBehaviour
             killSpider();
         }    
              
+    }
+    public void AttackSound()
+    {
+        m_MyAudioSource.Stop();
+        isWalkingSoundOn = false;
+        m_MyAudioSource.pitch = 1;
+        m_MyAudioSource.clip = spiderSounds[0];
+        m_MyAudioSource.loop = false;
+        m_MyAudioSource.Play();
+    }
+    public void WalkingSound()
+    {
+        if(!isWalkingSoundOn)
+        {
+            m_MyAudioSource.Stop();
+            m_MyAudioSource.clip = spiderSounds[1];
+            m_MyAudioSource.loop = true;
+            m_MyAudioSource.pitch = (float)2.5;
+            m_MyAudioSource.Play();
+            isWalkingSoundOn = true;
+        }
     }
     public void killSpider()
     {

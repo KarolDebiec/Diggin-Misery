@@ -20,8 +20,12 @@ public class PlayerController : MonoBehaviour
     public bool gettingHungry;
     public bool gettingThirsty;
     public GameObject respawnPoint = null;
-
-     
+    //holding users active clothes
+    public GameObject headWear;
+    public GameObject torsoWear;
+    public GameObject overTorsoWear;
+    public GameObject legsWear;
+    public GameObject feetWear;
     public bool test;
     // Start is called before the first frame update
     void Start()
@@ -54,7 +58,22 @@ public class PlayerController : MonoBehaviour
             test = false;
         }
     }
-
+    void LateUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if(UIcontroller.isquickEQPanelActive())
+            {
+                UIcontroller.hidequickEQPanel();
+                UIcontroller.displayEQPanel();
+            }
+            else
+            {
+                UIcontroller.hideEQPanel();
+                UIcontroller.displayquickEQPanel();
+            }
+        }
+    }
     public void DamagePlayer(float damageValue)
     {
         health -= damageValue;

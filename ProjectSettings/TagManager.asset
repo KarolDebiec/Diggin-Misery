@@ -24,8 +24,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - Equipment
   - PostProcessing
   - Not in Reflection
   - 
@@ -40,7 +40,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Test
   - 
   - 
   - 
