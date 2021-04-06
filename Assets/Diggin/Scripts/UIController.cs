@@ -52,6 +52,8 @@ public class UIController : MonoBehaviour
                 displayMenuPanel();
                 Time.timeScale = 0;
             }
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
     /*public void SetMaxDisplayHealth(float health)
