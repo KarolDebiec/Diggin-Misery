@@ -448,7 +448,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1593727746557118}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec72980442fddac4d86e75ab24b4d027, type: 3}
   m_Name: 
@@ -738,6 +738,7 @@ MonoBehaviour:
   UIcontroller: {fileID: 0}
   gameController: {fileID: 0}
   alive: 1
+  canMove: 1
   health: 100
   stamina: 100
   hunger: 100
@@ -755,6 +756,11 @@ MonoBehaviour:
   legsWear: {fileID: 0}
   feetWear: {fileID: 0}
   test: 0
+  character: {fileID: 4207293392497186}
+  sensitivity: 1
+  smoothing: 2
+  cam: {fileID: 20437472682476688}
+  pointer: {fileID: 0}
 --- !u!1 &9085632842595940453
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 
     public bool alive; // is player alive
 
+    public bool canMove=true;
+
     public float health;
     public float stamina;
     public float hunger;
@@ -27,10 +29,20 @@ public class PlayerController : MonoBehaviour
     public GameObject legsWear;
     public GameObject feetWear;
     public bool test;
-    // Start is called before the first frame update
+
+    [SerializeField]
+    Transform character;
+    Vector2 currentMouseLook;
+    Vector2 appliedMouseDelta;
+    public float sensitivity = 1;
+    public float smoothing = 2;
+    public Camera cam;
+    public GameObject pointer;
+
     void Start()
     {
-        
+        character = gameObject.transform;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -57,22 +69,28 @@ public class PlayerController : MonoBehaviour
             DamagePlayer(10);
             test = false;
         }
-    }
-    void LateUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
+        #region Mouse Look
+        if(canMove)
         {
-            if(UIcontroller.isquickEQPanelActive())
+            // Get smooth mouse look.
+            Vector2 smoothMouseDelta = Vector2.Scale(new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")), Vector2.one * sensitivity * smoothing);
+            appliedMouseDelta = Vector2.Lerp(appliedMouseDelta, smoothMouseDelta, 1 / smoothing);
+            currentMouseLook += appliedMouseDelta;
+            currentMouseLook.y = Mathf.Clamp(currentMouseLook.y, -90, 90);
+
+            // Rotate camera and controller.
+            cam.transform.localRotation = Quaternion.AngleAxis(-currentMouseLook.y, Vector3.right);
+            character.localRotation = Quaternion.AngleAxis(currentMouseLook.x, Vector3.up);
+
+
+            Ray ray = Camera.main.ScreenPointToRay(new Vector3((Screen.width / 2), (Screen.height / 2)));//raycast stuff
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))//notice the layer
             {
-                UIcontroller.hidequickEQPanel();
-                UIcontroller.displayEQPanel();
-            }
-            else
-            {
-                UIcontroller.hideEQPanel();
-                UIcontroller.displayquickEQPanel();
+                pointer.transform.position = hit.point;
             }
         }
+        #endregion
     }
     public void DamagePlayer(float damageValue)
     {

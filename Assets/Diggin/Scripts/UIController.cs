@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class UIController : MonoBehaviour
     public GameObject deathPanel;
     public GameObject eqPanel;
     public GameObject quickEQPanel;
+    public GameObject craftingPanel;
     public GameObject menuPanel;
     /* public Slider healthbarSlider;
      public Text healthbarText;
@@ -22,11 +24,25 @@ public class UIController : MonoBehaviour
     public Image staminaFill;
     public Image hungerFill;
     public Image thirstFill;
+
+    Inventory inventory;    // Our current inventory
+
+    public InventorySlot[] slots;
+
+    public Text[] itemsAmount;
+    public Image[] itemsIcons;
+
+    public Text[] itemsQuickAmount; // those are in the inventory panel at the bottom
+    public Image[] itemsQuickIcons;
+    public Text[] itemsQuickAmount2; //those are on the bottom of the screen
+    public Image[] itemsQuickIcons2;
     void Start()
     {
         /*SetMaxDisplayHealth(100);
         SetMaxDisplayStamina(100);
         SetMaxDisplayHunger(100);*/
+        inventory = Inventory.instance;
+        inventory.onItemChangedCallback += UpdateInventoryUI;
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
@@ -37,6 +53,8 @@ public class UIController : MonoBehaviour
         SetDisplayStamina(playerController.stamina);
         SetDisplayHunger(playerController.hunger);
         SetDisplayThirst(playerController.thirst);
+        UpdateInventoryUI();
+        UpdateQuickInventoryUI();
     }
     void LateUpdate()
     {
@@ -46,52 +64,68 @@ public class UIController : MonoBehaviour
             {
                 hideMenuPanel();
                 Time.timeScale = 1;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                playerController.canMove = true;
             }
             else
             {
                 displayMenuPanel();
                 Time.timeScale = 0;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                playerController.canMove = false;
             }
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (isquickEQPanelActive())
+            {
+                hidequickEQPanel();
+                displayEQPanel();
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                playerController.canMove = false;
+            }
+            else
+            {
+                hideEQPanel();
+                displayquickEQPanel();
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                playerController.canMove = true;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            if (isCraftingPanelActive())
+            {
+                hideCraftingPanel();
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                playerController.canMove = true;
+            }
+            else
+            {
+                displayCraftingPanel();
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                playerController.canMove = false;
+            }
         }
     }
-    /*public void SetMaxDisplayHealth(float health)
-    {
-        healthbarSlider.maxValue = health;
-        healthbarSlider.value = health;
-        healthbarText.text = health.ToString("F0");
-    }*/
+
+    #region Basic display functions
     public void SetDisplayHealth(float health)
     {
-        // healthbarSlider.value = health;
-        // healthbarText.text = health.ToString("F0");
         healthFill.fillAmount = health / (float)100;
     }
-    /*public void SetMaxDisplayStamina(float stamina)
-    {
-        staminabarSlider.maxValue = stamina;
-        staminabarSlider.value = stamina;
-        staminabarText.text = stamina.ToString("F0");
-
-    }*/
     public void SetDisplayStamina(float stamina)
     {
-        //staminabarSlider.value = stamina;
-        //staminabarText.text = stamina.ToString("F0");
         staminaFill.fillAmount = stamina / (float)100;
     }
-    /*public void SetMaxDisplayHunger(float Hunger)
-    {
-        hungerbarSlider.maxValue = Hunger;
-        hungerbarSlider.value = Hunger;
-        hungerbarText.text = Hunger.ToString("F0");
-
-    }*/
     public void SetDisplayHunger(float Hunger)
     {
-        //hungerbarSlider.value = Hunger;
-        //hungerbarText.text = Hunger.ToString("F0");
         hungerFill.fillAmount = Hunger / (float)100;
     }
     public void SetDisplayThirst(float Thirst)
@@ -115,6 +149,10 @@ public class UIController : MonoBehaviour
     {
         menuPanel.SetActive(true);
     }
+    public void displayCraftingPanel()
+    {
+        craftingPanel.SetActive(true);
+    }
     public void hideEQPanel()
     {
         eqPanel.SetActive(false);
@@ -130,6 +168,10 @@ public class UIController : MonoBehaviour
     public void hideMenuPanel()
     {
         menuPanel.SetActive(false);
+    }
+    public void hideCraftingPanel()
+    {
+        craftingPanel.SetActive(false);
     }
     public bool isEQPanelActive()
     {
@@ -147,9 +189,59 @@ public class UIController : MonoBehaviour
     {
         return menuPanel.activeSelf;
     }
+    public bool isCraftingPanelActive()
+    {
+        return craftingPanel.activeSelf;
+    }
     public void displayTime(float time)
     {
         //timeText.text = (time/3600).ToString("0f") + " : " + (time%3600).ToString("0f");
         timeText.text = Mathf.Floor((time / 3600)).ToString("f0") + " : " + Mathf.Floor((time % 3600)/60).ToString("f0");
     }
+    #endregion
+
+    #region Inventory UI Controller
+    public void UpdateInventoryUI()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if(inventory.items[i] != null)
+            {
+                slots[i].AddItem(inventory.items[i]);
+                slots[i].UpdateSlotUI(inventory.itemsNumber[i]);
+            }
+            else
+            {
+                slots[i].ClearSlot();
+            }
+        }
+    }
+    public void UpdateQuickInventoryUI()
+    {
+        for (int i = 0; i < itemsQuickIcons.Length; i++)
+        {
+            if (0 < inventory.itemsNumberQuick[i] && inventory.itemsQuick[i].isStackable && inventory.itemsQuick[i]!=null)
+            {
+                itemsQuickAmount[i].text = inventory.itemsNumberQuick[i].ToString("f0");
+                itemsQuickIcons[i].sprite = inventory.itemsQuick[i].icon;
+                itemsQuickAmount2[i].text = inventory.itemsNumberQuick[i].ToString("f0");
+                itemsQuickIcons2[i].sprite = inventory.itemsQuick[i].icon;
+            }
+            else if(0 < inventory.itemsNumberQuick[i] && !inventory.itemsQuick[i].isStackable)
+            {
+                itemsQuickAmount[i].text = " ";
+                itemsQuickIcons[i].sprite = inventory.itemsQuick[i].icon;
+                itemsQuickAmount2[i].text = " ";
+                itemsQuickIcons2[i].sprite = inventory.itemsQuick[i].icon;
+            }
+            else
+            {
+                itemsQuickAmount[i].text = " ";
+                itemsQuickIcons[i].sprite = null;
+                itemsQuickAmount2[i].text = " ";
+                itemsQuickIcons2[i].sprite = null;
+            }
+        }
+    }
+    #endregion
 }

@@ -1,84 +1,91 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
-public class InventorySlot
+/* Sits on all InventorySlots. */
+
+public class InventorySlot : MonoBehaviour,  IDropHandler
 {
 
-    private Stack<IInventoryItem> mItemStack = new Stack<IInventoryItem>();
+	public Image icon;
+	public Text AmountText;
+	public Button removeButton;
 
-    private int mId = 0;
+	Item item;  // Current item in the slot
 
-    public InventorySlot(int id) 
-    {
-        mId = id;
-    }
+	private Inventory inventory;
+	public int slotID;
+	// Add item to the slot
+	void Start()
+	{
+		inventory = GameObject.FindGameObjectWithTag("GameController").GetComponent<Inventory>();
+	}
+	public void AddItem (Item newItem)
+	{
+		item = newItem;
 
-    public int Id
-    {
-        get{
-            return mId;
-        }
-    }
+		icon.sprite = item.icon;
+		icon.enabled = true;
+		removeButton.interactable = true;
+	}
+	// Clear the slot
+	public void ClearSlot ()
+	{
+		item = null;
 
-    public void AddItem(IInventoryItem item)
-    {
-        item.Slot = this;
-        mItemStack.Push(item);
-    }
+		icon.sprite = null;
+		icon.enabled = false;
+		AmountText.text = " ";
+		removeButton.interactable = false;
+	}
+	public void UpdateSlotUI(int amount)
+	{
+		if(item == null || icon==null)
+		{
+			icon.enabled = false;
+		}
+		else
+		{
+			icon.enabled = true;
+			icon.sprite = item.icon;
+		}
+		//icon.sprite = item.icon;
+		if (amount > 0)
+		{
+			AmountText.text = amount.ToString("f0");
+		}
+		else
+		{
+			AmountText.text = " ";
+		}
+	}
+	// If the remove button is pressed, this function will be called.
+	/*public void RemoveItemFromInventory ()
+	{
+		GameObject.FindGameObjectWithTag("GameController").GetComponent<Inventory>().Remove(item);
+	}*/
 
-    public IInventoryItem FirstItem
-    {
-        get
-        {
-            if(IsEmpty)
-                return null;
+	// Use the item
+	public void UseItem ()
+	{
+		if (item != null)
+		{
+			item.Use();
+		}
+	}
 
-            return mItemStack.Peek();
-        }
-    }
-
-    public bool IsStackable(IInventoryItem item)
-    {
-        if(IsEmpty)
-            return false;
-
-        IInventoryItem first = mItemStack.Peek();
-
-        if(first.Name == item.Name)
-            return true;
-        
-        return false;
-    }
-
-    public bool IsEmpty
-    {
-        get 
-        { 
-            return Count == 0;
-        }
-    }
-
-    public int Count 
-    {
-        get
-        {
-            return mItemStack.Count;
-        }
-    }
-
-    public bool Remove(IInventoryItem item)
-    {
-        if (IsEmpty)
-            return false;
-
-        IInventoryItem first = mItemStack.Peek();
-        if (first.Name == item.Name)
-        {
-            mItemStack.Pop();
-            return true;
-        }
-        return false;
-    }
+	public void OnDrop(PointerEventData eventData)
+	{
+		if(inventory.DraggedItem<0)
+		{
+			Debug.Log("Nothing from inventory is dragged");
+		}
+		else
+		{
+			inventory.SwitchPositions(inventory.DraggedItem,slotID);
+			Debug.Log("Switched : " + inventory.DraggedItem + " with "+ slotID);
+		}
+		Debug.Log("Dropped here : " + gameObject.name);
+	}
 }
