@@ -324,13 +324,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7291870318331813186}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 035761c03700611419d4c4afd5e7c1b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 47f284427527a1d49a21f0911efa45d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CompassImage: {fileID: 0}
   player: {fileID: 0}
-  playerCamera: {fileID: 0}
-  vertical_ring: {fileID: 7633747303704247809}
-  horizontal_ring: {fileID: 7633747304615454578}
+  CompassDiretionText: {fileID: 0}
 --- !u!1001 &7291870317800987171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -397,7 +396,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: a9689e7adae5a2f45930648f8f45cba4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 69b056934d99c734d9cdfc4156b9cfe5, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a9689e7adae5a2f45930648f8f45cba4, type: 3}
       propertyPath: m_Name
       value: Ring_Horizontal
@@ -408,11 +407,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9689e7adae5a2f45930648f8f45cba4, type: 3}
---- !u!1 &7633747304615454578 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a9689e7adae5a2f45930648f8f45cba4, type: 3}
-  m_PrefabInstance: {fileID: 7291870317800987171}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7114372493955268040 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a9689e7adae5a2f45930648f8f45cba4, type: 3}
@@ -880,11 +874,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9689e7adae5a2f45930648f8f45cba4, type: 3}
---- !u!1 &7633747303704247809 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a9689e7adae5a2f45930648f8f45cba4, type: 3}
-  m_PrefabInstance: {fileID: 7291870319037252432}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7114372492727379131 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a9689e7adae5a2f45930648f8f45cba4, type: 3}
