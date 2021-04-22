@@ -10,17 +10,16 @@ public class MultiSceneDataHolder : MonoBehaviour
     {
         if(GameObject.FindGameObjectsWithTag("DataHolder").Length>1)
         {
-            DestroyImmediate(gameObject);
+            Destroy(gameObject);
         }
         else
         {
             DontDestroyOnLoad(gameObject);
         }
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+       // Debug.Log(worldName + " " + Save_Directory +" "+ GameObject.Find("/WorldManager").name);
+        //Debug.Log(GameObject.Find("/--- Singletons ---/ChunkManager").name);
     }
 }

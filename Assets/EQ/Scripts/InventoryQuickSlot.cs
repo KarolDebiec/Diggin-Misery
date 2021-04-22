@@ -3,45 +3,41 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-/* Sits on all InventorySlots. */
 
-public class InventorySlot : MonoBehaviour,  IDropHandler
+public class InventoryQuickSlot : MonoBehaviour, IDropHandler
 {
 
 	public Image icon;
 	public Text AmountText;
-	public Button removeButton;
 
 	Item item;  // Current item in the slot
 
 	private Inventory inventory;
-	public int slotID;
-	// Add item to the slot
+	public int slotID;          // quick slot id is starting from 200
+								// Add item to the slot
 	void Start()
 	{
 		inventory = GameObject.FindGameObjectWithTag("GameController").GetComponent<Inventory>();
 	}
-	public void AddItem (Item newItem)
+	public void AddItem(Item newItem)
 	{
 		item = newItem;
 
 		icon.sprite = item.icon;
 		icon.enabled = true;
-		removeButton.interactable = true;
 	}
 	// Clear the slot
-	public void ClearSlot ()
+	public void ClearSlot()
 	{
 		item = null;
 
 		icon.sprite = null;
 		icon.enabled = false;
 		AmountText.text = " ";
-		removeButton.interactable = false;
 	}
 	public void UpdateSlotUI(int amount)
 	{
-		if(item == null || icon==null)
+		if (item == null || icon == null)
 		{
 			icon.enabled = false;
 		}
@@ -60,9 +56,14 @@ public class InventorySlot : MonoBehaviour,  IDropHandler
 			AmountText.text = " ";
 		}
 	}
+	// If the remove button is pressed, this function will be called.
+	/*public void RemoveItemFromInventory ()
+	{
+		GameObject.FindGameObjectWithTag("GameController").GetComponent<Inventory>().Remove(item);
+	}*/
 
 	// Use the item
-	public void UseItem ()
+	public void UseItem()
 	{
 		if (item != null)
 		{
@@ -72,14 +73,14 @@ public class InventorySlot : MonoBehaviour,  IDropHandler
 
 	public void OnDrop(PointerEventData eventData)
 	{
-		if(inventory.DraggedItem<0)
+		if (inventory.DraggedItem < 0)
 		{
 			Debug.Log("Nothing from inventory is dragged");
 		}
-		else if(inventory.DraggedItem != slotID)
+		else if (inventory.DraggedItem != slotID)
 		{
-			inventory.SwitchPositions(inventory.DraggedItem,slotID);
-			Debug.Log("Switched : " + inventory.DraggedItem + " with "+ slotID);
+			inventory.SwitchPositions(inventory.DraggedItem, slotID);
+			Debug.Log("Switched : " + inventory.DraggedItem + " with " + slotID);
 		}
 		else
 		{

@@ -8,14 +8,17 @@ public class WorldManager : Singleton<WorldManager>
 {
     [SerializeField]private string world = "default"; //World selected by the manager
     public static string WORLDS_DIRECTORY = "/worlds"; //Directory worlds (save folder)
-    
 
-    private void Awake()
+
+    void Awake()
     {
+        Debug.Log("WorldManager Woke");
         world = (GameObject.FindGameObjectWithTag("DataHolder")).GetComponent<MultiSceneDataHolder>().worldName;
         WORLDS_DIRECTORY = (GameObject.FindGameObjectWithTag("DataHolder")).GetComponent<MultiSceneDataHolder>().Save_Directory;
         base.Awake();
         GetSelectedWorldDir();
+        Debug.Log(world);
+        Debug.Log(GetSelectedWorldDir());
         if (Instance == this)
         {
             DontDestroyOnLoad(gameObject);
@@ -26,6 +29,11 @@ public class WorldManager : Singleton<WorldManager>
             if (!Directory.Exists(Application.persistentDataPath + WORLDS_DIRECTORY + "/" + world))//in case world not created, create the world (generate folder)
                 Directory.CreateDirectory(Application.persistentDataPath + WORLDS_DIRECTORY + "/" + world);
         }
+    }
+
+    void OnDestroy()
+    {
+        Debug.Log("WorldManager Destroyed");
     }
     /// <summary>
     /// Create and select a new world (save/load folder).

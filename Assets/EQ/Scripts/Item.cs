@@ -9,6 +9,7 @@ public class Item : ScriptableObject {
 	public Sprite icon = null;				// Item icon
 	public bool showInInventory = true;
 	public bool isStackable;
+	public GameObject prefab;
 	// Called when the item is pressed in the inventory
 	public virtual void Use ()
 	{
@@ -17,9 +18,9 @@ public class Item : ScriptableObject {
 	}
 
 	// Call this method to remove the item from inventory
-	public void RemoveFromInventory ()
+	/*public void RemoveFromInventory ()
 	{
 		Inventory.instance.Remove(this);
-	}
+	}*/
 
 }

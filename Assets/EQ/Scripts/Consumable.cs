@@ -16,7 +16,7 @@ public class Consumable : Item {
 
 		Debug.Log(name + " consumed!");
 
-		RemoveFromInventory();	// Remove the item after use
+		//RemoveFromInventory();	// Remove the item after use
 	}
 
 }

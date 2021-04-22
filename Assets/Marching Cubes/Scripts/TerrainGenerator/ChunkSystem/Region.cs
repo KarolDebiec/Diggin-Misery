@@ -44,10 +44,11 @@ public class Region
     /// </summary>
     public byte[] GetChunkData(int index)
     {
+        //Debug.Log("called");
         int startPos = Constants.REGION_LOOKTABLE_BYTES + (index-1)*Constants.CHUNK_BYTES; // index-1 because the lookTable start at 1. LookTable position 10 = chunk data position 9.
         byte[] chunk = new byte[Constants.CHUNK_BYTES];
 
-        for (int i = startPos, j = 0; i < (startPos + Constants.CHUNK_BYTES); i ++,j++)
+        for (int i = startPos, j = 0; i < (startPos + Constants.CHUNK_BYTES); i++,j++)
         {
             chunk[j] = regionData[i];
         }

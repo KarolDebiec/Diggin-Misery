@@ -8,13 +8,13 @@ public class Equipment : Item {
 	public EquipmentSlot equipSlot;		// What slot to equip it in
 	public int armorModifier;
 	public int damageModifier;
-	public SkinnedMeshRenderer prefab;
+	//public SkinnedMeshRenderer prefab;
 
 	// Called when pressed in the inventory
 	public override void Use ()
 	{
 		EquipmentManager.instance.Equip(this);	// Equip
-		RemoveFromInventory();	// Remove from inventory
+		//RemoveFromInventory();	// Remove from inventory
 	}
 
 }

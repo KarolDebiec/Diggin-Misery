@@ -44,13 +44,14 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
     /// </summary>
     public virtual void Awake()
     {
-        if (instance == null)
+        if (instance == null || gameObject.name=="ChunkManager")
         {
             instance = this as T;
             //DontDestroyOnLoad(gameObject);
         }
         else
         {
+            Debug.Log("Singleton destroyed " + gameObject.name);
             Destroy(gameObject);
         }
     }

@@ -23,10 +23,10 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1.4
+  m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 219536570}
-  m_IndirectSpecularColor: {r: 0.18190676, g: 0.2275872, b: 0.3074174, a: 1}
+  m_IndirectSpecularColor: {r: 0.09169927, g: 0.06851733, b: 0.012480974, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -197,8 +197,9 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 1, z: 0, w: 6e-44}
+  m_BoundingSphereOverride: {x: 0, y: 3.0577483e+13, z: 4.5905e-41, w: -77.8985}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &219536571
@@ -280,6 +281,7 @@ MonoBehaviour:
   terrainMaterial: {fileID: 2100000, guid: e5e158f8f9cada14380f5755c6cef11c, type: 2}
   chunkViewDistance: 6
   chunkMantainDistance: 0.3
+  chunkLayer: 11
 --- !u!4 &697465278
 Transform:
   m_ObjectHideFlags: 0
@@ -394,6 +396,7 @@ MonoBehaviour:
   textSize: {fileID: 1173524278}
   textMaterial: {fileID: 1609144960}
   rangeHit: 100
+  minRangeHit: 1.5
   modiferStrengh: 10
   sizeHit: 8
   buildingMaterial: 1
@@ -703,7 +706,7 @@ MonoBehaviour:
   octaves: 3
   persistance: 0.5
   lacunarity: 2
-  maxSurfaceheight: 69
+  maxSurfaceheight: 290
   heightMatOffset: 10
   hightMatMult:
     serializedVersion: 2
@@ -756,7 +759,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  snowHeight: 58
+  snowHeight: 270
   rockLevel: 0.48
   dirtLevel: 0.22
 --- !u!114 &1408050305
@@ -821,7 +824,7 @@ MonoBehaviour:
   worldSeed: 49652736
   biomeScale: 150
   diffToMerge: 0.025
-  surfaceLevel: 38
+  surfaceLevel: 245
   octaves: 5
   persistance: 0.1
   lacunarity: 9
@@ -1037,6 +1040,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &1858288678
 Canvas:
   m_ObjectHideFlags: 0
@@ -1166,7 +1170,7 @@ LightingSettings:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Settings.lighting
-  serializedVersion: 2
+  serializedVersion: 3
   m_GIWorkflowMode: 0
   m_EnableBakedLightmaps: 1
   m_EnableRealtimeLightmaps: 0
@@ -1188,7 +1192,7 @@ LightingSettings:
   m_MixedBakeMode: 2
   m_LightmapsBakeMode: 1
   m_FilterMode: 1
-  m_LightmapParameters: {fileID: 0}
+  m_LightmapParameters: {fileID: 15204, guid: 0000000000000000f000000000000000, type: 0}
   m_ExportTrainingData: 0
   m_TrainingDataDestination: TrainingData
   m_RealtimeResolution: 2
@@ -1205,7 +1209,7 @@ LightingSettings:
   m_PVREnvironmentReferencePointCount: 2048
   m_LightProbeSampleCountMultiplier: 4
   m_PVRBounces: 2
-  m_PVRRussianRouletteStartBounce: 2
+  m_PVRMinBounces: 1
   m_PVREnvironmentMIS: 0
   m_PVRFilteringMode: 2
   m_PVRDenoiserTypeDirect: 0

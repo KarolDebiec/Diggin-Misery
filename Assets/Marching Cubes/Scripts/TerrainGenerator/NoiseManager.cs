@@ -37,6 +37,7 @@ public class NoiseManager : Singleton<NoiseManager>
 
 	public void Start()
 	{
+		Debug.Log("NoiseManager Started");
 		if (worldSeed == 0)//Generate random seed when use 0
 			worldSeed = Random.Range(int.MinValue, int.MaxValue);
 		if(biomes.Length == 0)

@@ -16,3 +16,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: ac97ec8a122387948a114d22962f256f, type: 3}
   showInInventory: 1
   isStackable: 0
+  prefab: {fileID: 2787740615474572023, guid: f43c1c3eea96e1e4896758af9090a890, type: 3}

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class ChunkManager : Singleton<ChunkManager>
 {
@@ -26,10 +28,11 @@ public class ChunkManager : Singleton<ChunkManager>
     private float removeDistance;
     private float loadRegionDistance;
 
-
+    private bool loadedScene = false;
     //Load on initialize the game
     private void Start()
     {
+        Debug.Log("ChunkManager Started");
         noiseManager = NoiseManager.Instance;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         loadRegionDistance = Constants.CHUNK_SIDE * Constants.REGION_SIZE * Constants.VOXEL_SIDE * 0.9f;
@@ -37,7 +40,10 @@ public class ChunkManager : Singleton<ChunkManager>
         lastPlayerPos.z = Mathf.FloorToInt(player.position.z / loadRegionDistance) * loadRegionDistance + loadRegionDistance / 2;
         initRegion(Mathf.FloorToInt(player.position.x / loadRegionDistance), Mathf.FloorToInt(player.position.z/ loadRegionDistance));
     }
-
+    void OnDestroy()
+    {
+        Debug.Log("ChunkManager Destroyed");
+    }
     /// <summary>
     /// Load surrounding regions of the player when first load
     /// </summary>
@@ -83,15 +89,27 @@ public class ChunkManager : Singleton<ChunkManager>
     //Called each frame
     void Update()
     {
-        if(lastChunkViewDistance != chunkViewDistance)
+        //Debug.Log("chunk manager working on update");
+        if (lastChunkViewDistance != chunkViewDistance)
             CalculateDistances();
-        HiddeRemoveChunk();
-        CheckNewChunks();
-        LoadChunkFromList();
-        CheckRegion();
+        if (loadedScene)
+        {
+            //Debug.Log("Scene loaded and chunk manager working on update");
+            HiddeRemoveChunk();
+            CheckNewChunks();
+            LoadChunkFromList();
+            CheckRegion();
+        }
         //Debug.Log("Regions: " + regionDict.Count + "   / Chunks: " + chunkDict.Count);
     }
-
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        loadedScene = true;
+    }
     /// <summary>
     /// Check the distance to the player for inactive or remove the chunk.  
     /// </summary>

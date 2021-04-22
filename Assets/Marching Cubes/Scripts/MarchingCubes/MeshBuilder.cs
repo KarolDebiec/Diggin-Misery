@@ -18,6 +18,11 @@ public class MeshBuilder : Singleton<MeshBuilder>
     /// Method that calculate cubes, vertex and mesh in that order of a chunk.
     /// </summary>
     /// <param name="b"> data of the chunk</param>
+    
+    void Start()
+    {
+        Debug.Log("MeshBuilder Started");
+    }
     public Mesh BuildChunk(byte[] b)
     {
         BuildChunkJob buildChunkJob = new BuildChunkJob

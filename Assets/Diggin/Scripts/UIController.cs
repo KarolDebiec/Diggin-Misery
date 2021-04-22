@@ -28,7 +28,7 @@ public class UIController : MonoBehaviour
     Inventory inventory;    // Our current inventory
 
     public InventorySlot[] slots;
-
+    public InventoryQuickSlot[] quickSlots;
     public Text[] itemsAmount;
     public Image[] itemsIcons;
 
@@ -218,26 +218,35 @@ public class UIController : MonoBehaviour
     }
     public void UpdateQuickInventoryUI()
     {
-        for (int i = 0; i < itemsQuickIcons.Length; i++)
+        for (int i = 0; i < quickSlots.Length; i++)
         {
+            if (inventory.itemsQuick[i] != null)
+            {
+                quickSlots[i].AddItem(inventory.itemsQuick[i]);
+                quickSlots[i].UpdateSlotUI(inventory.itemsNumberQuick[i]);
+            }
+            else
+            {
+                quickSlots[i].ClearSlot();
+            }
             if (0 < inventory.itemsNumberQuick[i] && inventory.itemsQuick[i].isStackable && inventory.itemsQuick[i]!=null)
             {
-                itemsQuickAmount[i].text = inventory.itemsNumberQuick[i].ToString("f0");
-                itemsQuickIcons[i].sprite = inventory.itemsQuick[i].icon;
+//               itemsQuickAmount[i].text = inventory.itemsNumberQuick[i].ToString("f0");
+//               itemsQuickIcons[i].sprite = inventory.itemsQuick[i].icon;
                 itemsQuickAmount2[i].text = inventory.itemsNumberQuick[i].ToString("f0");
                 itemsQuickIcons2[i].sprite = inventory.itemsQuick[i].icon;
             }
             else if(0 < inventory.itemsNumberQuick[i] && !inventory.itemsQuick[i].isStackable)
             {
-                itemsQuickAmount[i].text = " ";
-                itemsQuickIcons[i].sprite = inventory.itemsQuick[i].icon;
+//               itemsQuickAmount[i].text = " ";
+//               itemsQuickIcons[i].sprite = inventory.itemsQuick[i].icon;
                 itemsQuickAmount2[i].text = " ";
                 itemsQuickIcons2[i].sprite = inventory.itemsQuick[i].icon;
             }
             else
             {
-                itemsQuickAmount[i].text = " ";
-                itemsQuickIcons[i].sprite = null;
+//              itemsQuickAmount[i].text = " ";
+//              itemsQuickIcons[i].sprite = null;
                 itemsQuickAmount2[i].text = " ";
                 itemsQuickIcons2[i].sprite = null;
             }
