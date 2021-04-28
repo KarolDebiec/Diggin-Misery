@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb712357b616dc045a9e2069aa9e12da, type: 3}
-  m_Name: PowerCell
+  m_Name: CreatedItem
   m_EditorClassIdentifier: 
-  name: Power Cell
-  icon: {fileID: 21300000, guid: ac97ec8a122387948a114d22962f256f, type: 3}
+  name: CraftingTestItem
+  icon: {fileID: 21300000, guid: fc242dd0e65e34f46bb72e452ff34e53, type: 3}
   showInInventory: 1
   isStackable: 1
-  prefab: {fileID: 2787740615474572023, guid: f43c1c3eea96e1e4896758af9090a890, type: 3}
+  prefab: {fileID: 0}

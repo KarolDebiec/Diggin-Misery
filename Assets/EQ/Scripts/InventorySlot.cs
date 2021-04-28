@@ -51,7 +51,7 @@ public class InventorySlot : MonoBehaviour,  IDropHandler
 			icon.sprite = item.icon;
 		}
 		//icon.sprite = item.icon;
-		if (amount > 0)
+		if (amount > 0 && item.isStackable)
 		{
 			AmountText.text = amount.ToString("f0");
 		}

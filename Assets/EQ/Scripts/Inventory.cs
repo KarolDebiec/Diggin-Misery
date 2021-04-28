@@ -51,7 +51,7 @@ public class Inventory : MonoBehaviour {
 
 	public void Add (Item item)
 	{
-		if (item.showInInventory) 
+		if (item.showInInventory && item.isStackable) 
 		{
 			/*if (items.Count >= space) 
 			{
@@ -116,9 +116,33 @@ public class Inventory : MonoBehaviour {
 					return;
 				}
 			}
+			ItemDropByType(item); // if there is no space in inventory then it drops it back outside
 			Debug.Log("Brak miejsca na dodanie przedmiotu");
 			if (onItemChangedCallback != null)
 				onItemChangedCallback.Invoke ();
+		}
+		else if(!item.isStackable)
+		{
+			for (int i = 0; i < items.Length; i++)
+			{
+				if (items[i] == null)
+				{
+					items[i] = item;
+					itemsNumber[i] = 1;
+					return;
+				}
+			}
+			for (int i = 0; i < itemsQuick.Length; i++)
+			{
+				if (itemsQuick[i] == null)
+				{
+					itemsQuick[i] = item;
+					itemsNumberQuick[i] = 1;
+					return;
+				}
+			}
+			ItemDropByType(item); // if there is no space in inventory then it drops it back outside
+			Debug.Log("Brak miejsca na dodanie przedmiotu");
 		}
 	}	
 	// Remove an item
@@ -156,6 +180,32 @@ public class Inventory : MonoBehaviour {
 
 		if (onItemChangedCallback != null)
 			onItemChangedCallback.Invoke();
+	}
+
+	public void RemoveBySlotId(int slotID)
+	{
+		if(slotID < 200)
+		{
+			itemsNumber[slotID] -= 1;
+			if (itemsNumber[slotID] <= 0)
+			{
+				itemsNumber[slotID] = 0;
+				items[slotID] = null;
+				return;
+			}
+			return;
+		}
+		else if(slotID >= 200)
+		{
+			itemsNumberQuick[slotID-200] -= 1;
+			if (itemsNumberQuick[slotID - 200] <= 0)
+			{
+				itemsNumberQuick[slotID - 200] = 0;
+				itemsQuick[slotID - 200] = null;
+				return;
+			}
+			return;
+		}
 	}
 	public void SwitchPositions(int origin, int destination)  // switches positions in inventory
 	{
@@ -269,12 +319,16 @@ public class Inventory : MonoBehaviour {
 		if (droppedItemID < 200)
 		{
 			Instantiate(items[droppedItemID].prefab, playerItemDropOffset + playerController.transform.position, Quaternion.identity);
-			Remove(items[droppedItemID]);
+			RemoveBySlotId(droppedItemID);
 		}
 		else if (droppedItemID >= 200)
 		{
 			Instantiate(itemsQuick[droppedItemID-200].prefab, playerItemDropOffset + playerController.transform.position, Quaternion.identity);
-			Remove(itemsQuick[droppedItemID-200]);
+			RemoveBySlotId(droppedItemID);
 		}
+	}
+	public void ItemDropByType(Item toDrop)  // drops item based on type, not affecting inventory itself, used in crafting item if there is not enough space
+	{
+		Instantiate(toDrop.prefab, playerItemDropOffset + playerController.transform.position, Quaternion.identity);
 	}
 }

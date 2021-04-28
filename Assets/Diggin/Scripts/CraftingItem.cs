@@ -7,12 +7,12 @@ using UnityEngine.UI;
 public class CraftingItem : MonoBehaviour
 {
     public Inventory inventory;
-    public int[] requiredItems;
+    public Item[] requiredItems;
     public int[] requiredItemsAmount;
-    public GameObject outputItem;
+    public Item outputItem;
     public int outputItemNumber; // how many items are going to be crafted
-    public Sprite ItemIcon;  //displayed icon of the item
-    public Sprite[] requiredItemsIcons;
+    public Text outputItemName;
+    public Text outputItemAmount;
     public Image[] requiredItemsIconsDisplay;
     public Text[] requiredItemsNumbers;
     public Image ItemIconDisplay;
@@ -30,32 +30,56 @@ public class CraftingItem : MonoBehaviour
     private void Awake()
     {
         UpdateRequirements();
-        CheckIfCanCraftItem();
+        if(CheckIfCanCraftItem())
+        {
+            DisplayAvailable();
+        }
+        else
+        {
+            DisplayUnavailable();
+        }
     }
     public void UpdateRequirements() // updates needed items in the display
     {
-        int i = 0;
-        foreach(Text number in requiredItemsNumbers)
+        outputItemName.text = outputItem.name;
+        for (int i = 0; i < requiredItemsAmount.Length; i++)
         {
-            number.text = requiredItemsAmount[i].ToString("f0");
-            i++;
+            requiredItemsNumbers[i].text = requiredItemsAmount[i].ToString("f0");
         }
-        i = 0;
-        ItemIconDisplay.sprite = ItemIcon;
-        foreach (Image icon in requiredItemsIconsDisplay)
+        ItemIconDisplay.sprite = outputItem.icon;
+        for (int i = 0; i < requiredItems.Length; i++)
         {
-            icon.sprite = requiredItemsIcons[i];
-            i++;
+            requiredItemsIconsDisplay[i].sprite = requiredItems[i].icon;
         }
     }
-    public void CheckIfCanCraftItem() // checks if there are enough items in inventory
+    public bool CheckIfCanCraftItem() // checks if there are enough items in inventory
     {
-    
+        for (int i = 0; i < requiredItems.Length; i++)
+        {
+           
+        }
+        return true;
     }
     public void CraftItem()
     {
-        //delete items used
-        //add item created
+        if(CheckIfCanCraftItem())
+        {
+            //delete items used
+            int i = 0;
+            foreach (int amount in requiredItemsAmount)
+            {
+                for (int k = 0; k < amount; k++)
+                {
+                    inventory.Remove(requiredItems[i]);
+                }
+                i++;
+            }
+            //add item created
+            for (i = 0; i < outputItemNumber; i++)
+            {
+                inventory.Add(outputItem);
+            }
+        }
     }
     public void DisplayAvailable()
     {
