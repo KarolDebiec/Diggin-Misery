@@ -117,16 +117,18 @@ public class Preview : MonoBehaviour
                 ChangeColor();
             }
         }
+        Debug.Log(isSnapped + "on enter");
     }
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Ceiling") || other.gameObject.CompareTag("Foundation") && isSnapped)
         {
             canBuild = false;
-            isSnapped = false;//were no longer snapped
+            isSnapped = true;//were no longer snapped
             ChangeColor();//change color
             Debug.Log(other);
         }
+        Debug.Log(isSnapped + "on stay");
     }
 
     private void OnTriggerExit(Collider other)//this is what determins if you are no longer snapped to a snap point
@@ -150,7 +152,7 @@ public class Preview : MonoBehaviour
                 }
             }
         }
-        //Debug.Log(isSnapped + " out " + canBuild);
+        Debug.Log(isSnapped + "on exit");
         ChangeColor(); //change color
     }
     
