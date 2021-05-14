@@ -36,6 +36,14 @@ public class UIController : MonoBehaviour
     public Image[] itemsQuickIcons;
     public Text[] itemsQuickAmount2; //those are on the bottom of the screen
     public Image[] itemsQuickIcons2;
+
+    public Image[] itemsQuickBackgrounds;
+    public Color ActiveColor;
+    public Color InactiveColor;
+    public int activeQuickSlot; // active quick inventory slot
+
+    public KeyCode[] keys;
+
     void Start()
     {
         /*SetMaxDisplayHealth(100);
@@ -44,9 +52,8 @@ public class UIController : MonoBehaviour
         inventory = Inventory.instance;
         inventory.onItemChangedCallback += UpdateInventoryUI;
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        changePickedQuickSlot(-1);
     }
-
-    // Update is called once per frame
     void Update()
     {
         SetDisplayHealth(playerController.health);
@@ -111,6 +118,256 @@ public class UIController : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 playerController.canMove = false;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if(inventory.itemsQuick[0] != null && activeQuickSlot != 0)
+            {
+                changePickedQuickSlot(0);
+                inventory.itemsQuick[0].StopAction();
+                playerController.ChangeObjectInHand(inventory.itemsQuick[0]);
+                if(inventory.itemsQuick[0] is PlaceableItem)
+                {
+                    inventory.itemsQuick[0].Place();
+                }
+            }
+            else
+            {
+                for(int i = 0; i<9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
+                changePickedQuickSlot(-1);
+                playerController.ChangeObjectInHand(null);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (inventory.itemsQuick[1] != null && activeQuickSlot != 1)
+            {
+                changePickedQuickSlot(1);
+                inventory.itemsQuick[1].StopAction();
+                playerController.ChangeObjectInHand(inventory.itemsQuick[1]);
+                if (inventory.itemsQuick[1] is PlaceableItem)
+                {
+                    inventory.itemsQuick[1].Place();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    if(inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
+                changePickedQuickSlot(-1);
+                playerController.ChangeObjectInHand(null);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (inventory.itemsQuick[2] != null && activeQuickSlot != 2)
+            {
+                changePickedQuickSlot(2);
+                inventory.itemsQuick[2].StopAction();
+                playerController.ChangeObjectInHand(inventory.itemsQuick[2]);
+                if (inventory.itemsQuick[2] is PlaceableItem)
+                {
+                    inventory.itemsQuick[2].Place();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
+                changePickedQuickSlot(-1);
+                playerController.ChangeObjectInHand(null);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            if (inventory.itemsQuick[3] != null && activeQuickSlot != 3)
+            {
+                changePickedQuickSlot(3);
+                inventory.itemsQuick[3].StopAction();
+                playerController.ChangeObjectInHand(inventory.itemsQuick[3]);
+                if (inventory.itemsQuick[3] is PlaceableItem)
+                {
+                    inventory.itemsQuick[3].Place();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
+                changePickedQuickSlot(-1);
+                playerController.ChangeObjectInHand(null);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            if (inventory.itemsQuick[4] != null && activeQuickSlot != 4)
+            {
+                changePickedQuickSlot(4);
+                inventory.itemsQuick[4].StopAction();
+                playerController.ChangeObjectInHand(inventory.itemsQuick[4]);
+                if (inventory.itemsQuick[4] is PlaceableItem)
+                {
+                    inventory.itemsQuick[4].Place();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
+                changePickedQuickSlot(-1);
+                playerController.ChangeObjectInHand(null);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            if (inventory.itemsQuick[5] != null && activeQuickSlot != 5)
+            {
+                changePickedQuickSlot(5);
+                inventory.itemsQuick[5].StopAction();
+                playerController.ChangeObjectInHand(inventory.itemsQuick[5]);
+                if (inventory.itemsQuick[5] is PlaceableItem)
+                {
+                    inventory.itemsQuick[5].Place();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
+                changePickedQuickSlot(-1);
+                playerController.ChangeObjectInHand(null);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            if (inventory.itemsQuick[6] != null && activeQuickSlot != 6)
+            {
+                changePickedQuickSlot(6);
+                inventory.itemsQuick[6].StopAction();
+                playerController.ChangeObjectInHand(inventory.itemsQuick[6]);
+                if (inventory.itemsQuick[6] is PlaceableItem)
+                {
+                    inventory.itemsQuick[6].Place();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
+                changePickedQuickSlot(-1);
+                playerController.ChangeObjectInHand(null);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            if (inventory.itemsQuick[7] != null && activeQuickSlot != 7)
+            {
+                changePickedQuickSlot(7);
+                inventory.itemsQuick[7].StopAction();
+                playerController.ChangeObjectInHand(inventory.itemsQuick[7]);
+                if (inventory.itemsQuick[7] is PlaceableItem)
+                {
+                    inventory.itemsQuick[7].Place();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
+                changePickedQuickSlot(-1);
+                playerController.ChangeObjectInHand(null);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            if (inventory.itemsQuick[8] != null && activeQuickSlot != 8)
+            {
+                changePickedQuickSlot(8);
+                inventory.itemsQuick[8].StopAction();
+                playerController.ChangeObjectInHand(inventory.itemsQuick[8]);
+                if (inventory.itemsQuick[8] is PlaceableItem)
+                {
+                    inventory.itemsQuick[8].Place();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
+                changePickedQuickSlot(-1);
+                playerController.ChangeObjectInHand(null);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            if (inventory.itemsQuick[9] != null && activeQuickSlot != 9)
+            {
+                changePickedQuickSlot(9);
+                inventory.itemsQuick[9].StopAction();
+                playerController.ChangeObjectInHand(inventory.itemsQuick[9]);
+                if (inventory.itemsQuick[9] is PlaceableItem)
+                {
+                    inventory.itemsQuick[9].Place();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
+                changePickedQuickSlot(-1);
+                playerController.ChangeObjectInHand(null);
             }
         }
     }
@@ -249,6 +506,32 @@ public class UIController : MonoBehaviour
 //              itemsQuickIcons[i].sprite = null;
                 itemsQuickAmount2[i].text = " ";
                 itemsQuickIcons2[i].sprite = null;
+            }
+        }
+    }
+    public void changePickedQuickSlot(int slot)//0-9
+    {
+        if(slot >= 0 )
+        {
+            activeQuickSlot = slot;
+            for (int i = 0; i < 10; i++)
+            {
+                if (i == slot)
+                {
+                    itemsQuickBackgrounds[i].color = ActiveColor;
+                }
+                else
+                {
+                    itemsQuickBackgrounds[i].color = InactiveColor;
+                }
+            }
+        }
+        if (slot < 0)
+        {
+            activeQuickSlot = -1;
+            for (int i = 0; i < 10; i++)
+            {
+                itemsQuickBackgrounds[i].color = InactiveColor;
             }
         }
     }

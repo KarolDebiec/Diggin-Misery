@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
     private PhysicallyBasedSky sky;
     public bool isNight;
 
+
     private void Awake()
     {
         world = (GameObject.FindGameObjectWithTag("DataHolder")).GetComponent<MultiSceneDataHolder>().worldName;

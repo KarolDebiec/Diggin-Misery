@@ -10,13 +10,21 @@ public class Item : ScriptableObject {
 	public bool showInInventory = true;
 	public bool isStackable;
 	public GameObject prefab;
+	public bool isPlaceable = false;
 	// Called when the item is pressed in the inventory
 	public virtual void Use ()
 	{
 		// Use the item
 		// Something may happen
 	}
+	public virtual void Place()
+	{
 
+	}
+	public virtual void StopAction() // stops any action that is meant to be used like placing object or building
+	{
+
+	}
 	// Call this method to remove the item from inventory
 	/*public void RemoveFromInventory ()
 	{

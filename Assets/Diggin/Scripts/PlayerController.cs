@@ -14,7 +14,11 @@ public class PlayerController : MonoBehaviour
     public float health;
     public float stamina;
     public float hunger;
-    public float thirst;
+    public float thirst; 
+    public float maxHealth;
+    public float maxStamina;
+    public float maxHunger;
+    public float maxThirst;
     public float hungerLossMultiplier;
     public float hungerHPLossMultiplier;
     public float thirstLossMultiplier;
@@ -22,6 +26,10 @@ public class PlayerController : MonoBehaviour
     public bool gettingHungry;
     public bool gettingThirsty;
     public GameObject respawnPoint = null;
+
+    public Item objectInHand = null;// object that is picked at the time
+
+
     //holding users active clothes
     public GameObject headWear;
     public GameObject torsoWear;
@@ -120,12 +128,52 @@ public class PlayerController : MonoBehaviour
             gameObject.transform.position = new Vector3(0,150,0);
         }
     }
-    public void AddThirst(float value)
+    public void AddHealth(float value)
     {
-        thirst += value;
+        if(health+value>=maxHealth)
+        {
+            health = maxHealth;
+        }
+        else
+        {
+            health += value;
+        }
     }
-    public void AddFood(float value)
+    public void AddStamina(float value)
     {
-        hunger += value;
+        if (stamina + value >= maxStamina)
+        {
+            stamina = maxStamina;
+        }
+        else
+        {
+            stamina += value;
+        }
+    }
+    public void ReduceThirst(float value)
+    {
+        if (thirst + value >= maxThirst)
+        {
+            thirst = maxThirst;
+        }
+        else
+        {
+            thirst += value;
+        }
+    }
+    public void ReduceHunger(float value)
+    {
+        if (hunger + value >= maxHunger)
+        {
+            hunger = maxHunger;
+        }
+        else
+        {
+            hunger += value;
+        }
+    }
+    public void ChangeObjectInHand(Item item)
+    {
+        objectInHand = item;
     }
 }

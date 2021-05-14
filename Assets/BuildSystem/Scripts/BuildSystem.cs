@@ -42,6 +42,8 @@ public class BuildSystem : MonoBehaviour {
 
     public float previewRotationSpeed;
 
+    public UIController uiController;
+    public Inventory inventory;
     private void Update()
     {
         /*if (Input.GetKeyDown(KeyCode.R) && isBuilding)//rotate
@@ -190,7 +192,7 @@ public class BuildSystem : MonoBehaviour {
         isBuilding = true;
     }
 
-    private void CancelBuild()//you no longer want to build, this will get rid of the previewGameObject in the scene
+    public void CancelBuild()//you no longer want to build, this will get rid of the previewGameObject in the scene
     {
         Destroy(previewGameObject);
         previewGameObject = null;
@@ -202,6 +204,9 @@ public class BuildSystem : MonoBehaviour {
     private void StopBuild()//This is a bad name, It should be called something like BuildIt(). This will actually build your preview in the world
     {
         previewScript.Place();
+        Debug.Log(uiController.activeQuickSlot + 200);
+        inventory.RemoveBySlotId(uiController.activeQuickSlot + 200);
+        uiController.changePickedQuickSlot(-1);
         previewGameObject = null;
         previewScript = null;
         isBuilding = false;
