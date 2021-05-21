@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6380609, g: 0.38717127, b: 0.24800158, a: 1}
+  m_IndirectSpecularColor: {r: 0.6950414, g: 0.4506321, b: 0.34629297, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -38558,9 +38558,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9300fe6037d0e0d4894ea154e6fa3df1, type: 2}
   - {fileID: 11400000, guid: 3d76e82589050b54da576130a657cf34, type: 2}
   - {fileID: 11400000, guid: 83e3e13a4d267d149a1a28290d467288, type: 2}
+  - {fileID: 11400000, guid: 03efb93415df25c419792b7964b5bb84, type: 2}
   - {fileID: 0}
-  - {fileID: 0}
-  itemsNumber: 00000000000000000000000000000000040000000200000002000000020000000000000000000000
+  itemsNumber: 00000000000000000000000000000000040000000200000002000000020000000100000000000000
   itemsQuick:
   - {fileID: 0}
   - {fileID: 0}
@@ -38571,8 +38571,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  itemsNumberQuick: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+  - {fileID: 11400000, guid: 05ef1c58145ed7b45a4591a6d9bcab6b, type: 2}
+  itemsNumberQuick: 00000000000000000000000000000000000000000000000000000000000000000000000002000000
   DraggedItem: -1
   testitem: {fileID: 11400000, guid: 744cbda45a8f6ff498c9b638da980f3a, type: 2}
 --- !u!4 &1595021147 stripped

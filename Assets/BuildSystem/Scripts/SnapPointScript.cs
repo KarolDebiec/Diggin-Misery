@@ -22,9 +22,5 @@ public class SnapPointScript : MonoBehaviour
         buildSystem.RemoveSnapPointFromList(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

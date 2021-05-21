@@ -20,9 +20,4 @@ public class furnitureSnapPointScript : MonoBehaviour
         buildSystem.RemoveFurnitureSnapPointFromList(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

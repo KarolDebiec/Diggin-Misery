@@ -10,12 +10,7 @@ public class buildingGroup : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
     public void AddToList(GameObject value)
     {
         structuresInGroup.Add(value);

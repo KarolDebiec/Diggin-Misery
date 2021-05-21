@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 338626b4bba4a2a488b7211689cec311, type: 3}
+  m_Name: RoundStairs
+  m_EditorClassIdentifier: 
+  name: RoundStairs
+  icon: {fileID: 21300000, guid: 3682eed9a06a56e4a92fd235d3ab7dee, type: 3}
+  showInInventory: 1
+  isStackable: 1
+  prefab: {fileID: 0}
+  isPlaceable: 1
+  isStructure: 0
+  isFurniture: 1
+  placeablePrefab: {fileID: 8977370767203435958, guid: caa30d55afada9c4a854bfce86c33cca, type: 3}
+  buildSystem: {fileID: 0}

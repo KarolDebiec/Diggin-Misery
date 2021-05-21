@@ -13,7 +13,6 @@ public class PlaceableItem : Item
 
     public override void Place()
     {
-        Debug.Log("nadpisana");
         buildSystem = (GameObject.FindGameObjectWithTag("BuildSystem")).GetComponent<BuildSystem>();
         if (isStructure)
         {
@@ -37,7 +36,7 @@ public class PlaceableItem : Item
         }
         else if (isFurniture)
         {
-            buildSystem.CancelBuild();
+            buildSystem.CancelFurniturePlacement();
         }
         else
         {

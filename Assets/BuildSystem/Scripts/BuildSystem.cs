@@ -373,7 +373,7 @@ public class BuildSystem : MonoBehaviour {
         previewFurnitureScript.ChangeColor();
         isFurniturePlacement = true;
     }
-    private void CancelFurniturePlacement()//you no longer want to build, this will get rid of the previewGameObject in the scene
+    public void CancelFurniturePlacement()//you no longer want to build, this will get rid of the previewGameObject in the scene
     {
         Destroy(previewFurnitureGameObject);
         previewFurnitureGameObject = null;
@@ -382,9 +382,12 @@ public class BuildSystem : MonoBehaviour {
         DisableFurnitureSnapPoints();
     }
 
-    private void PlaceFurniture()
+    public void PlaceFurniture()
     {
         previewFurnitureScript.Place();
+        Debug.Log(uiController.activeQuickSlot + 200);
+        inventory.RemoveBySlotId(uiController.activeQuickSlot + 200);
+        uiController.changePickedQuickSlot(-1);
         previewFurnitureGameObject = null;
         previewFurnitureScript = null;
         isFurniturePlacement = false;
@@ -426,6 +429,7 @@ public class BuildSystem : MonoBehaviour {
         {
             if (hit.collider != null)
             {
+                furniturePreview _furniturePreview = previewFurnitureGameObject.GetComponent<furniturePreview>();
                 Debug.Log(hit.collider.tag);
                 // Add a tag to your object and use use CompareTag for better performace.
                 if (hit.collider.CompareTag("Foundation") && !previewFurnitureScript.shouldBeSnapped)
@@ -440,7 +444,7 @@ public class BuildSystem : MonoBehaviour {
                         previewFurnitureScript.isSnapped = false;
                         previewFurnitureScript.canPlace = false;
                 }
-                else if ((hit.collider.CompareTag("Door_SP") && previewFurnitureGameObject.name == "door_preview(Clone)"))
+                /*else if ((hit.collider.CompareTag("Door_SP") && previewFurnitureGameObject.name == "door_preview(Clone)"))
                 {
                     previewFurnitureScript.snappedTo = hit.collider.gameObject;
                     previewFurnitureScript.isSnapped = true;
@@ -466,12 +470,25 @@ public class BuildSystem : MonoBehaviour {
                     Vector3 pos = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, hit.collider.transform.position.z);
                     previewFurnitureGameObject.transform.rotation = hit.collider.transform.rotation;
                     previewFurnitureGameObject.transform.position = pos;
-                }
+                }*/
                 else
                 {
                     previewFurnitureGameObject.transform.position = hit.point;
                     previewFurnitureScript.isSnapped = false;
                     previewFurnitureScript.canPlace = false;
+                }
+                for (int i =0; i < _furniturePreview.tagsISnapTo.Count; i++)
+                {
+                    Debug.Log(i);
+                    if (_furniturePreview.tagsISnapTo[i] == hit.collider.tag)
+                    {
+                        previewFurnitureScript.snappedTo = hit.collider.gameObject;
+                        previewFurnitureScript.isSnapped = true;
+                        previewFurnitureScript.ChangeColor();
+                        Vector3 pos = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, hit.collider.transform.position.z);
+                        previewFurnitureGameObject.transform.rotation = hit.collider.transform.rotation;
+                        previewFurnitureGameObject.transform.position = pos;
+                    }
                 }
             }
         }

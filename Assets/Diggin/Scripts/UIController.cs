@@ -124,8 +124,14 @@ public class UIController : MonoBehaviour
         {
             if(inventory.itemsQuick[0] != null && activeQuickSlot != 0)
             {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
                 changePickedQuickSlot(0);
-                inventory.itemsQuick[0].StopAction();
                 playerController.ChangeObjectInHand(inventory.itemsQuick[0]);
                 if(inventory.itemsQuick[0] is PlaceableItem)
                 {
@@ -149,8 +155,14 @@ public class UIController : MonoBehaviour
         {
             if (inventory.itemsQuick[1] != null && activeQuickSlot != 1)
             {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
                 changePickedQuickSlot(1);
-                inventory.itemsQuick[1].StopAction();
                 playerController.ChangeObjectInHand(inventory.itemsQuick[1]);
                 if (inventory.itemsQuick[1] is PlaceableItem)
                 {
@@ -174,8 +186,14 @@ public class UIController : MonoBehaviour
         {
             if (inventory.itemsQuick[2] != null && activeQuickSlot != 2)
             {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
                 changePickedQuickSlot(2);
-                inventory.itemsQuick[2].StopAction();
                 playerController.ChangeObjectInHand(inventory.itemsQuick[2]);
                 if (inventory.itemsQuick[2] is PlaceableItem)
                 {
@@ -199,8 +217,14 @@ public class UIController : MonoBehaviour
         {
             if (inventory.itemsQuick[3] != null && activeQuickSlot != 3)
             {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
                 changePickedQuickSlot(3);
-                inventory.itemsQuick[3].StopAction();
                 playerController.ChangeObjectInHand(inventory.itemsQuick[3]);
                 if (inventory.itemsQuick[3] is PlaceableItem)
                 {
@@ -224,8 +248,14 @@ public class UIController : MonoBehaviour
         {
             if (inventory.itemsQuick[4] != null && activeQuickSlot != 4)
             {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
                 changePickedQuickSlot(4);
-                inventory.itemsQuick[4].StopAction();
                 playerController.ChangeObjectInHand(inventory.itemsQuick[4]);
                 if (inventory.itemsQuick[4] is PlaceableItem)
                 {
@@ -249,8 +279,14 @@ public class UIController : MonoBehaviour
         {
             if (inventory.itemsQuick[5] != null && activeQuickSlot != 5)
             {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
                 changePickedQuickSlot(5);
-                inventory.itemsQuick[5].StopAction();
                 playerController.ChangeObjectInHand(inventory.itemsQuick[5]);
                 if (inventory.itemsQuick[5] is PlaceableItem)
                 {
@@ -274,8 +310,14 @@ public class UIController : MonoBehaviour
         {
             if (inventory.itemsQuick[6] != null && activeQuickSlot != 6)
             {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
                 changePickedQuickSlot(6);
-                inventory.itemsQuick[6].StopAction();
                 playerController.ChangeObjectInHand(inventory.itemsQuick[6]);
                 if (inventory.itemsQuick[6] is PlaceableItem)
                 {
@@ -299,8 +341,14 @@ public class UIController : MonoBehaviour
         {
             if (inventory.itemsQuick[7] != null && activeQuickSlot != 7)
             {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
                 changePickedQuickSlot(7);
-                inventory.itemsQuick[7].StopAction();
                 playerController.ChangeObjectInHand(inventory.itemsQuick[7]);
                 if (inventory.itemsQuick[7] is PlaceableItem)
                 {
@@ -324,8 +372,14 @@ public class UIController : MonoBehaviour
         {
             if (inventory.itemsQuick[8] != null && activeQuickSlot != 8)
             {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
                 changePickedQuickSlot(8);
-                inventory.itemsQuick[8].StopAction();
                 playerController.ChangeObjectInHand(inventory.itemsQuick[8]);
                 if (inventory.itemsQuick[8] is PlaceableItem)
                 {
@@ -349,8 +403,14 @@ public class UIController : MonoBehaviour
         {
             if (inventory.itemsQuick[9] != null && activeQuickSlot != 9)
             {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (inventory.itemsQuick[i] != null)
+                    {
+                        inventory.itemsQuick[i].StopAction();
+                    }
+                }
                 changePickedQuickSlot(9);
-                inventory.itemsQuick[9].StopAction();
                 playerController.ChangeObjectInHand(inventory.itemsQuick[9]);
                 if (inventory.itemsQuick[9] is PlaceableItem)
                 {
