@@ -25,7 +25,15 @@ public class CraftingItem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (CheckIfCanCraftItem())
+        {
+            DisplayAvailable();
+        }
+        else
+        {
+            DisplayUnavailable();
+        }
+
     }
     private void Awake()
     {
@@ -54,15 +62,19 @@ public class CraftingItem : MonoBehaviour
     }
     public bool CheckIfCanCraftItem() // checks if there are enough items in inventory
     {
+        bool canCraft = true;
         for (int i = 0; i < requiredItems.Length; i++)
         {
-           
+            if (inventory.AmountOfItem(requiredItems[i]) < requiredItemsAmount[i] && canCraft)
+            {
+                canCraft = false;
+            }
         }
-        return true;
+        return canCraft;
     }
     public void CraftItem()
     {
-        if(CheckIfCanCraftItem())
+        if (CheckIfCanCraftItem())
         {
             //delete items used
             int i = 0;

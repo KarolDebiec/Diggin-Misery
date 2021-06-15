@@ -18,6 +18,7 @@ TagManager:
   - Terrain
   - BuildSystem
   - Centre_SP
+  - Material
   layers:
   - Default
   - TransparentFX

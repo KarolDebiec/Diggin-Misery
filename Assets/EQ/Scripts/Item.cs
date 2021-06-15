@@ -25,6 +25,11 @@ public class Item : ScriptableObject {
 	{
 
 	}
+	public virtual void Pick() // picks object to hand
+	{
+		PlayerController playerController = (GameObject.FindGameObjectWithTag("Player")).GetComponent<PlayerController>();
+		playerController.ChangeObjectInHand(this);
+	}
 	// Call this method to remove the item from inventory
 	/*public void RemoveFromInventory ()
 	{

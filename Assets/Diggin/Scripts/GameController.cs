@@ -26,11 +26,18 @@ public class GameController : MonoBehaviour
     private PhysicallyBasedSky sky;
     public bool isNight;
 
+    public float[] digged;
+    public float[] diggedYSperarator;
+    public float diggedTreshold = 10; // amount needed to spawn digged material
+    public Item[] diggedItems;
+
+    public List<GameObject> materialsOnGround = new List<GameObject>();
 
     private void Awake()
     {
         world = (GameObject.FindGameObjectWithTag("DataHolder")).GetComponent<MultiSceneDataHolder>().worldName;
         save_dir = (GameObject.FindGameObjectWithTag("DataHolder")).GetComponent<MultiSceneDataHolder>().Save_Directory;
+        playerController = (GameObject.FindGameObjectWithTag("Player")).GetComponent<PlayerController>();
         UIcontroller = gameObject.GetComponent<UIController>();
         skyVolume.profile.TryGet(out sky);
     }
@@ -120,5 +127,26 @@ public class GameController : MonoBehaviour
         isNight = true;
         moon.shadows = LightShadows.Soft;
         sun.shadows = LightShadows.None;
+    }
+    public void AddDiggedGround(float amount,float depth)
+    {
+        digged[0] -= amount;
+        //Debug.Log(depth);
+        if(digged[0]>diggedTreshold)
+        {
+            Debug.Log("spawning");
+            playerController.SpawnDiggedMaterial(diggedItems[0]);
+            digged[0] += amount;
+        }
+        //if over set amount drops an item like dirt or something
+    }
+
+    public void AddToListOfMaterials(GameObject value)
+    {
+        materialsOnGround.Add(value);
+    }
+    public void RemoveFromListOfMaterials(GameObject value)
+    {
+        materialsOnGround.Remove(value);
     }
 }

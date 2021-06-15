@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -47,6 +48,17 @@ public class PlayerController : MonoBehaviour
     public Camera cam;
     public GameObject pointer;
 
+    public LayerMask layer;//the layer that the raycast of dropping item will hit on
+    public float maxDistanceToDrop;
+
+    public GameObject leftLegTarget; //leg is attracted to this object
+    public GameObject rightLegTarget;
+    public GameObject leftLegTargetTargets; //legs target is attracted to this object if distance is too big
+    public GameObject rightLegTargetTargets;
+    public GameObject leftLegTargetRayOrigin;
+    public GameObject rightLegTargetRayOrigin;
+    public float maxLegsDistance;
+    public float legMovementSpeed;
     void Start()
     {
         character = gameObject.transform;
@@ -56,6 +68,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetMouseButtonDown(0))
+        {
+            if(objectInHand!=null)
+            {
+                UseObjectInHand();
+            }
+        }
         if(alive && gettingHungry && hunger>0)
         {
             hunger -= hungerLossMultiplier*Time.deltaTime*(float)0.01;
@@ -98,6 +117,18 @@ public class PlayerController : MonoBehaviour
                 pointer.transform.position = hit.point;
             }
         }
+        #endregion
+        #region Legs Animation
+        RaycastHit hit2;
+        if (Physics.Raycast(rightLegTargetRayOrigin.transform.position, (Vector3.down - rightLegTargetRayOrigin.transform.position).normalized, out hit2, Mathf.Infinity, layer))
+        {
+            Debug.DrawRay(rightLegTargetRayOrigin.transform.position, (Vector3.down - rightLegTargetRayOrigin.transform.position).normalized * hit2.distance, Color.white);
+        }
+        if (Physics.Raycast(leftLegTargetRayOrigin.transform.position, (Vector3.down - leftLegTargetRayOrigin.transform.position).normalized, out hit2, Mathf.Infinity, layer))
+        {
+            Debug.DrawRay(leftLegTargetRayOrigin.transform.position, (Vector3.down - leftLegTargetRayOrigin.transform.position).normalized * hit2.distance, Color.blue);
+        }
+
         #endregion
     }
     public void DamagePlayer(float damageValue)
@@ -175,5 +206,30 @@ public class PlayerController : MonoBehaviour
     public void ChangeObjectInHand(Item item)
     {
         objectInHand = item;
+    }
+    public void UseObjectInHand()
+    {
+        objectInHand.Use();
+    }
+    public void SpawnDiggedMaterial(Item digged)
+    {
+        Ray ray = cam.ScreenPointToRay(new Vector3((Screen.width / 2), (Screen.height / 2)));//raycast stuff
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 100f, layer))//notice the layer
+        {
+            if (hit.collider != null)
+            {
+                if(maxDistanceToDrop>hit.distance)
+                {
+                    Instantiate(digged.prefab, hit.point, Quaternion.identity);
+                    Debug.Log("created at hit.point");
+                }
+                else
+                {
+                    Instantiate(digged.prefab, hit.point, Quaternion.identity);
+                }
+            }
+        }
     }
 }

@@ -47,6 +47,7 @@ public class Inventory : MonoBehaviour {
 		{
 			Remove(testitem);
 		}
+		Debug.Log(AmountOfItem(testitem));
 	}
 
 	public void Add (Item item)
@@ -330,5 +331,52 @@ public class Inventory : MonoBehaviour {
 	public void ItemDropByType(Item toDrop)  // drops item based on type, not affecting inventory itself, used in crafting item if there is not enough space
 	{
 		Instantiate(toDrop.prefab, playerItemDropOffset + playerController.transform.position, Quaternion.identity);
+	}
+	public int AmountOfItem(Item item) // returns how many of selected item is there in the inventory
+	{
+		int amount = 0;
+		//needs to check slots in eq and quickeq
+		for(int i = 0;i < items.Length; i++ )
+		{
+			if (items[i] == item && itemsNumber[i] > 0)
+			{
+				amount+= itemsNumber[i];
+			}
+		}
+		for (int i = 0; i < itemsQuick.Length; i++)
+		{
+			if (itemsQuick[i] == item && itemsNumberQuick[i] > 0)
+			{
+				amount+= itemsNumberQuick[i];
+			}
+		}
+		return amount;
+	}
+
+	public bool IsSpaceForItem(Item item)
+	{
+		for (int i = 0; i < items.Length; i++)
+		{
+			if (items[i] == item && itemsNumber[i] < MaxStack)
+			{
+				return true;
+			}
+			if(items[i] == null)
+			{
+				return true;
+			}
+		}
+		for (int i = 0; i < itemsQuick.Length; i++)
+		{
+			if (itemsQuick[i] == item && itemsNumberQuick[i] < MaxStack)
+			{
+				return true;
+			}
+			if (itemsQuick[i] == null)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }

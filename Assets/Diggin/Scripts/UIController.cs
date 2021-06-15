@@ -137,6 +137,10 @@ public class UIController : MonoBehaviour
                 {
                     inventory.itemsQuick[0].Place();
                 }
+                if (inventory.itemsQuick[0] is TerraformingTool)
+                {
+                    inventory.itemsQuick[0].Pick();
+                }
             }
             else
             {
@@ -167,6 +171,10 @@ public class UIController : MonoBehaviour
                 if (inventory.itemsQuick[1] is PlaceableItem)
                 {
                     inventory.itemsQuick[1].Place();
+                }
+                if (inventory.itemsQuick[1] is TerraformingTool)
+                {
+                    inventory.itemsQuick[1].Pick();
                 }
             }
             else
@@ -199,6 +207,10 @@ public class UIController : MonoBehaviour
                 {
                     inventory.itemsQuick[2].Place();
                 }
+                if (inventory.itemsQuick[2] is TerraformingTool)
+                {
+                    inventory.itemsQuick[2].Pick();
+                }
             }
             else
             {
@@ -229,6 +241,10 @@ public class UIController : MonoBehaviour
                 if (inventory.itemsQuick[3] is PlaceableItem)
                 {
                     inventory.itemsQuick[3].Place();
+                }
+                if (inventory.itemsQuick[3] is TerraformingTool)
+                {
+                    inventory.itemsQuick[3].Pick();
                 }
             }
             else
@@ -261,6 +277,10 @@ public class UIController : MonoBehaviour
                 {
                     inventory.itemsQuick[4].Place();
                 }
+                if (inventory.itemsQuick[4] is TerraformingTool)
+                {
+                    inventory.itemsQuick[4].Pick();
+                }
             }
             else
             {
@@ -291,6 +311,10 @@ public class UIController : MonoBehaviour
                 if (inventory.itemsQuick[5] is PlaceableItem)
                 {
                     inventory.itemsQuick[5].Place();
+                }
+                if (inventory.itemsQuick[5] is TerraformingTool)
+                {
+                    inventory.itemsQuick[5].Pick();
                 }
             }
             else
@@ -323,6 +347,10 @@ public class UIController : MonoBehaviour
                 {
                     inventory.itemsQuick[6].Place();
                 }
+                if (inventory.itemsQuick[6] is TerraformingTool)
+                {
+                    inventory.itemsQuick[6].Pick();
+                }
             }
             else
             {
@@ -353,6 +381,10 @@ public class UIController : MonoBehaviour
                 if (inventory.itemsQuick[7] is PlaceableItem)
                 {
                     inventory.itemsQuick[7].Place();
+                }
+                if (inventory.itemsQuick[7] is TerraformingTool)
+                {
+                    inventory.itemsQuick[7].Pick();
                 }
             }
             else
@@ -385,6 +417,10 @@ public class UIController : MonoBehaviour
                 {
                     inventory.itemsQuick[8].Place();
                 }
+                if (inventory.itemsQuick[8] is TerraformingTool)
+                {
+                    inventory.itemsQuick[8].Pick();
+                }
             }
             else
             {
@@ -415,6 +451,10 @@ public class UIController : MonoBehaviour
                 if (inventory.itemsQuick[9] is PlaceableItem)
                 {
                     inventory.itemsQuick[9].Place();
+                }
+                if (inventory.itemsQuick[9] is TerraformingTool)
+                {
+                    inventory.itemsQuick[9].Pick();
                 }
             }
             else

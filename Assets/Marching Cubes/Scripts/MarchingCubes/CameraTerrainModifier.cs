@@ -20,32 +20,33 @@ public class CameraTerrainModifier : MonoBehaviour
 
     private RaycastHit hit;
     private ChunkManager chunkManager;
+    private GameController gameController;
 
+    private float modified;
     void Awake()
     {
         chunkManager = ChunkManager.Instance;
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         UpdateUI();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+        /*
+        if (Input.GetMouseButton(0))
         {
-            float modification = (Input.GetMouseButton(0)) ? modiferStrengh : -modiferStrengh;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, rangeHit))
-            {
-                if(hit.distance>minRangeHit)
-                {
-                    if (hit.collider.CompareTag("Terrain"))
-                    {
-                        chunkManager.ModifyChunkData(hit.point, sizeHit, modification, buildingMaterial);
-                    }
-                }
-            }
+            TerraformTarget(rangeHit, minRangeHit, modiferStrengh, sizeHit,false);
         }
-
+        if (Input.GetMouseButton(1))
+        {
+            TerraformTarget(rangeHit, minRangeHit, modiferStrengh, sizeHit, true);
+        }
+        else
+        {
+            modified = 0;
+        }*/
+        
         //Inputs
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && buildingMaterial != Constants.NUMBER_MATERIALS - 1)
         {
@@ -70,7 +71,26 @@ public class CameraTerrainModifier : MonoBehaviour
         }
 
     }
-
+    public void TerraformTarget(bool AddTerrain)
+    {
+        float modification = (AddTerrain) ? modiferStrengh : -modiferStrengh;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, rangeHit))
+        {
+            if (hit.distance > minRangeHit)
+            {
+                if (hit.collider.CompareTag("Terrain"))
+                {
+                    chunkManager.ModifyChunkData(hit.point, sizeHit, modification, buildingMaterial);
+                    modified += modification;
+                    if (modification < 0)
+                    {
+                        gameController.AddDiggedGround(modification, hit.point.y);
+                    }
+                    Debug.Log(modified);
+                }
+            }
+        }
+    }
     public void UpdateUI()
     {
         textSize.text = "(+ -) Brush size: " + sizeHit;
