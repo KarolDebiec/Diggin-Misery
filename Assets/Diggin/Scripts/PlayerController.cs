@@ -59,6 +59,10 @@ public class PlayerController : MonoBehaviour
     public GameObject rightLegTargetRayOrigin;
     public float maxLegsDistance;
     public float legMovementSpeed;
+
+    public float GrabRange; // distance in which player can interact with objects
+    public GameObject aimedAt;
+    public GameObject canInteractIndicator;
     void Start()
     {
         character = gameObject.transform;
@@ -75,7 +79,14 @@ public class PlayerController : MonoBehaviour
                 UseObjectInHand();
             }
         }
-        if(alive && gettingHungry && hunger>0)
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (aimedAt != null)
+            {
+                //tu wykonaj cos co ma sie stac
+            }
+        }
+        if (alive && gettingHungry && hunger>0)
         {
             hunger -= hungerLossMultiplier*Time.deltaTime*(float)0.01;
         }
@@ -128,9 +139,41 @@ public class PlayerController : MonoBehaviour
         {
             Debug.DrawRay(leftLegTargetRayOrigin.transform.position, (Vector3.down - leftLegTargetRayOrigin.transform.position).normalized * hit2.distance, Color.blue);
         }
+        #endregion
+        #region Camera Interactions
+        Ray ray3 = Camera.main.ScreenPointToRay(new Vector3((Screen.width / 2), (Screen.height / 2)));//raycast stuff
+        RaycastHit hit3;
+        if (Physics.Raycast(ray3, out hit3,GrabRange))//notice the layer
+        {
+            Debug.Log(hit3.transform.name);
+            if(hit3.rigidbody!=null)
+            {
+                if (hit3.rigidbody.gameObject.CompareTag("Interactable"))
+                {
+                    canInteractIndicator.SetActive(true);
+                    aimedAt = hit3.rigidbody.gameObject;
+                }
+                else
+                {
+                    aimedAt = null;
+                    canInteractIndicator.SetActive(false);
+                }
+            }
+            else
+            {
+                aimedAt = null;
+                canInteractIndicator.SetActive(false);
+            }
+        }
+        else
+        {
+            aimedAt = null;
+            canInteractIndicator.SetActive(false);
+        }
 
         #endregion
     }
+
     public void DamagePlayer(float damageValue)
     {
         health -= damageValue;
@@ -206,6 +249,7 @@ public class PlayerController : MonoBehaviour
     public void ChangeObjectInHand(Item item)
     {
         objectInHand = item;
+        // zmiana przedmiotu w rece (fizyczna)
     }
     public void UseObjectInHand()
     {

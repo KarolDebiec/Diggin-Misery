@@ -19,6 +19,7 @@ TagManager:
   - BuildSystem
   - Centre_SP
   - Material
+  - Interactable
   layers:
   - Default
   - TransparentFX

@@ -93,9 +93,10 @@ GameObject:
   - component: {fileID: 31210036187544370}
   - component: {fileID: 350985249746306822}
   - component: {fileID: 1224462556364862206}
+  - component: {fileID: -4365958776862834351}
   m_Layer: 0
   m_Name: szafka_prefab
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -158,6 +159,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 2, z: 0.5}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &-4365958776862834351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078420719816691088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b4e7f5f2ee9754f9dda20e817e3a47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1132138434956204979
 GameObject:
   m_ObjectHideFlags: 0

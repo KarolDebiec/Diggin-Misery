@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 338626b4bba4a2a488b7211689cec311, type: 3}
+  m_Name: SmallPot
+  m_EditorClassIdentifier: 
+  name: Small Pot
+  icon: {fileID: 0}
+  showInInventory: 1
+  isStackable: 1
+  prefab: {fileID: 2351490317749661950, guid: 9e6443295c365e6439d1de5f791c69f8, type: 3}
+  isPlaceable: 1
+  isStructure: 0
+  isFurniture: 1
+  placeablePrefab: {fileID: 7769667413474149171, guid: 8a3bacf8736ec554daee4ae2cafbfc9b, type: 3}
+  buildSystem: {fileID: 0}
