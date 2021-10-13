@@ -24,7 +24,7 @@ namespace Lovatto.SceneLoader.Editor
             if (GUILayout.Button("DOCUMENTATION", GUILayout.Height(40)))
             {
                 //Application.OpenURL("http://lovattostudio.com/documentations/loading-screen/");
-                GetWindow<LoadingScreenDocumentation>();
+                //GetWindow<LoadingScreenDocumentation>();
                 this.Close();
             }
             GUILayout.FlexibleSpace();

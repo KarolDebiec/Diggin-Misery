@@ -7,6 +7,7 @@ using UnityEngine.Serialization;
 
 public class DroneScript : MonoBehaviour
 {
+    /*
     // Drone characteristics
     public float speed;
     public float health;
@@ -141,6 +142,6 @@ public class DroneScript : MonoBehaviour
             // Calculate a rotation a step closer to the target and applies rotation to this object
             gameObject.transform.rotation = Quaternion.LookRotation(newDirection); 
         }
-    }
+    }*/
 }
  

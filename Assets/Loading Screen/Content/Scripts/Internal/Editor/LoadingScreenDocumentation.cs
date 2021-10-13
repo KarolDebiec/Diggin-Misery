@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿/*using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using LoadingScreen.TutorialWizard;
@@ -147,4 +147,4 @@ public class LoadingScreenDocumentation : TutorialWizard
     {
         GetWindow<LoadingScreenDocumentation>();
     }
-}
+}*/
