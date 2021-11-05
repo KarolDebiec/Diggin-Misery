@@ -21,7 +21,7 @@ public class MeshBuilder : Singleton<MeshBuilder>
     
     void Start()
     {
-        Debug.Log("MeshBuilder Started");
+        //Debug.Log("MeshBuilder Started");
     }
     public Mesh BuildChunk(byte[] b)
     {

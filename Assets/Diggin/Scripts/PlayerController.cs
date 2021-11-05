@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit3;
         if (Physics.Raycast(ray3, out hit3,GrabRange))//notice the layer
         {
-            Debug.Log(hit3.transform.name);
+            //Debug.Log(hit3.transform.name);
             if(hit3.rigidbody!=null)
             {
                 if (hit3.rigidbody.gameObject.CompareTag("Interactable"))

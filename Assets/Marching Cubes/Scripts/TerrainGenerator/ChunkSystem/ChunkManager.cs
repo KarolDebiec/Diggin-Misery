@@ -28,17 +28,26 @@ public class ChunkManager : Singleton<ChunkManager>
     private float removeDistance;
     private float loadRegionDistance;
 
+    private int startingChunksToLoad;
     private bool loadedScene = false;
     //Load on initialize the game
     private void Start()
     {
-        Debug.Log("ChunkManager Started");
+        //Debug.Log("ChunkManager Started");
         noiseManager = NoiseManager.Instance;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         loadRegionDistance = Constants.CHUNK_SIDE * Constants.REGION_SIZE * Constants.VOXEL_SIDE * 0.9f;
         lastPlayerPos.x = Mathf.FloorToInt(player.position.x / loadRegionDistance) * loadRegionDistance + loadRegionDistance / 2;
         lastPlayerPos.z = Mathf.FloorToInt(player.position.z / loadRegionDistance) * loadRegionDistance + loadRegionDistance / 2;
         initRegion(Mathf.FloorToInt(player.position.x / loadRegionDistance), Mathf.FloorToInt(player.position.z/ loadRegionDistance));
+        if (loadedScene)
+        {
+            HiddeRemoveChunk();
+            CheckNewChunks();
+            LoadChunkFromList();
+            CheckRegion();
+        }
+        startingChunksToLoad = chunkLoadList.Count;
     }
     void OnDestroy()
     {
@@ -63,6 +72,7 @@ public class ChunkManager : Singleton<ChunkManager>
     /// </summary>
     void LoadRegion(int initX, int initZ)
     {
+
         Dictionary<Vector2Int, Region> newRegionDict = new Dictionary<Vector2Int, Region>();
 
         for (int x = initX-1; x < initX + 2; x++)
@@ -385,6 +395,28 @@ public class ChunkManager : Singleton<ChunkManager>
         //save regions
         foreach (Region region in regionDict.Values)
             region.SaveRegionData();
+    }
+    public bool checkIsLoaded()
+    {
+        if(chunkLoadList.Count == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public float getLoadingProgress()
+    {
+        if(chunkLoadList.Count == 0)
+        {
+            return 100;
+        }
+        else
+        {
+            return 100 - (((float)chunkLoadList.Count/ (float)startingChunksToLoad)*100);
+        }
     }
 }
 

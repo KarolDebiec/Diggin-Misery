@@ -11,6 +11,8 @@ public class GameController : MonoBehaviour
     public PlayerController playerController;
     public UIController UIcontroller;
 
+
+
     private string world; // worlds name
     private string save_dir; // saving folder
 
@@ -33,6 +35,8 @@ public class GameController : MonoBehaviour
 
     public List<GameObject> materialsOnGround = new List<GameObject>();
 
+    public ChunkManager chunkManager;
+    public bool isLoaded;
     private void Awake()
     {
         world = (GameObject.FindGameObjectWithTag("DataHolder")).GetComponent<MultiSceneDataHolder>().worldName;
@@ -55,6 +59,21 @@ public class GameController : MonoBehaviour
         {
             LoadGame();
         }
+        
+        if (!isLoaded)
+        {
+            //Debug.Log(chunkManager.getLoadingProgress());
+            UIcontroller.changeLoadingProgressValue((int)chunkManager.getLoadingProgress());
+            if (chunkManager.checkIsLoaded())
+            {
+                UIcontroller.hideLoadingPanel();
+                isLoaded = true;
+            }
+        }
+        else
+        {
+            
+        }
     }
     private void OnValidate()
     {
@@ -70,6 +89,10 @@ public class GameController : MonoBehaviour
     public void RespawnPlayer()
     {
         playerController.RespawnPlayer();
+    }
+    public void changePlayerPosition(Vector3 pos)
+    {
+        playerController.gameObject.transform.position = pos;
     }
     public void LoadGame() //loades buildings, stats, eq, world variables
     {

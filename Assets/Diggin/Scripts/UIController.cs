@@ -44,6 +44,12 @@ public class UIController : MonoBehaviour
 
     public KeyCode[] keys;
 
+    public GameObject loadingPanel;
+    public Text loadingText;
+    public Text loadingPhaseText;
+    public Image loadingFill;
+    public string[] loadingPhases;
+    public float loadingState;
     void Start()
     {
         /*SetMaxDisplayHealth(100);
@@ -60,6 +66,7 @@ public class UIController : MonoBehaviour
         SetDisplayStamina(playerController.stamina);
         SetDisplayHunger(playerController.hunger);
         SetDisplayThirst(playerController.thirst);
+        changeLoadingProgress(loadingState);
         UpdateInventoryUI();
         UpdateQuickInventoryUI();
     }
@@ -490,6 +497,11 @@ public class UIController : MonoBehaviour
         thirstFill.fillAmount = Thirst/(float)100;
         
     }
+    public void SetDisplayLoading(float loading)
+    {
+        loadingFill.fillAmount = loading / (float)100;
+
+    }
     public void displayEQPanel()
     {
         eqPanel.SetActive(true);
@@ -509,6 +521,10 @@ public class UIController : MonoBehaviour
     public void displayCraftingPanel()
     {
         craftingPanel.SetActive(true);
+    }
+    public void displayLoadingPanel()
+    {
+        loadingPanel.SetActive(true);
     }
     public void hideEQPanel()
     {
@@ -530,6 +546,10 @@ public class UIController : MonoBehaviour
     {
         craftingPanel.SetActive(false);
     }
+    public void hideLoadingPanel()
+    {
+        loadingPanel.SetActive(false);
+    }
     public bool isEQPanelActive()
     {
         return eqPanel.activeSelf;
@@ -550,10 +570,24 @@ public class UIController : MonoBehaviour
     {
         return craftingPanel.activeSelf;
     }
+    public bool isLoadingPanelActive()
+    {
+        return loadingPanel.activeSelf;
+    }
+    public void changeLoadingProgress(float progress)
+    {
+        loadingText.text = progress.ToString("f0");
+        SetDisplayLoading(progress);
+    }
     public void displayTime(float time)
     {
         //timeText.text = (time/3600).ToString("0f") + " : " + (time%3600).ToString("0f");
         timeText.text = Mathf.Floor((time / 3600)).ToString("f0") + " : " + Mathf.Floor((time % 3600)/60).ToString("f0");
+    }
+
+    public void changeLoadingProgressValue( int progress)
+    {
+        loadingState = (float)progress;
     }
     #endregion
 

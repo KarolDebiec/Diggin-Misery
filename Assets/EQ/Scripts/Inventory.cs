@@ -47,7 +47,7 @@ public class Inventory : MonoBehaviour {
 		{
 			Remove(testitem);
 		}
-		Debug.Log(AmountOfItem(testitem));
+		//Debug.Log(AmountOfItem(testitem));
 	}
 
 	public void Add (Item item)
